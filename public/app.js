@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
     const db = firebase.firestore();
     const post = db.collection('posts').doc('MKJScYYllI7d7AINIjoM');
-
-    post.get().then(doc => {
-        const data = doc.data();
-        document.write( data.title + `<br>`);
-    });
     
 });
 
