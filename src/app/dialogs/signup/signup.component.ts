@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbActiveModal, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +8,11 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor( public activeModal: NgbActiveModal ) { }
+
+  private closeModal(): void {
+    this.activeModal.close('Modal Closed');
+  }
 
   ngOnInit() {
   }

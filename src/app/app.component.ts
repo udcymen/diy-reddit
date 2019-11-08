@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './dialogs/login/login.component'
 import { SignupComponent } from './dialogs/signup/signup.component'
 
@@ -13,24 +14,25 @@ export class AppComponent {
   email: string;
   password: StaticRange;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private modalService: NgbModal) { }
 
-  private openLoginDialog(): void{
-    let dialogRef = this.dialog.open(LoginComponent, {
-      width: '500px',
-      data: {email: this.email, password: this.password}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.email = result;
+  private openLoginDialog(): void {
+    const modalRef = this.modalService.open(LoginComponent);
+    
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
-  private openSignUpDialog(): void{
-    let dialogRef = this.dialog.open(SignupComponent, {
-      width: '250px',
-      data: {email: this.email, password: this.password}
+  private openSignUpDialog(): void {
+    const modalRef = this.modalService.open(SignupComponent);
+    
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
     });
   }
 }
