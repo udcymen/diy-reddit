@@ -1,17 +1,22 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-            <a [routerLinkActive]='activeClass' class="nav-link" routerLink='home'>Home</a>
-        </li>
-      <li class="nav-item">
-            <a [routerLinkActive]='activeClass' class="nav-link" routerLink='about'>About</a>
-        </li>
-    </ul>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item ">
+      <a [routerLinkActive]='activeClass' class="nav-link" routerLink='home'>Home</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLinkActive]='activeClass' class="nav-link" routerLink='post'>Post</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLinkActive]='activeClass' class="nav-link" routerLink='about'>About</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLinkActive]='activeClass' class="nav-link" routerLink='login'>Login</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLinkActive]='activeClass' class="nav-link" routerLink='signup'>Sign up</a>
+    </li>
+  </ul>
 </nav>
-
-<div style="text-align:center" class="jumbotron">
-  <h4>Data provided by Last.FM</h4>
-</div>
 <div class='height-fix'>
   <div>
     <router-outlet></router-outlet>
