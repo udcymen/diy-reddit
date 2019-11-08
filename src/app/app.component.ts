@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { LoginComponent } from './dialogs/login/login.component'
 import { SignupComponent } from './dialogs/signup/signup.component'
 
@@ -9,23 +9,28 @@ import { SignupComponent } from './dialogs/signup/signup.component'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'diy-reddit';
+  
+  email: string;
+  password: StaticRange;
+
   constructor(public dialog: MatDialog) { }
 
   private openLoginDialog(): void{
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
+    let dialogRef = this.dialog.open(LoginComponent, {
+      width: '500px',
+      data: {email: this.email, password: this.password}
+    });
 
-    let dialogRef = this.dialog.open(LoginComponent, dialogConfig);
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.email = result;
+    });
   }
 
   private openSignUpDialog(): void{
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-
-    let dialogRef = this.dialog.open(SignupComponent, dialogConfig);
-    
+    let dialogRef = this.dialog.open(SignupComponent, {
+      width: '250px',
+      data: {email: this.email, password: this.password}
+    });
   }
-
 }

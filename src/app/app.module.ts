@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { MatCheckboxModule, MatButtonModule, MatTableModule, MatDialogModule } from '@angular/material';
+import { MatCheckboxModule, MatButtonModule, MatTableModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -17,6 +18,18 @@ import { PostComponent } from './views/post/post.component';
 import { LoginComponent } from './dialogs/login/login.component';
 import { SignupComponent } from './dialogs/signup/signup.component';
 
+const firebase = [
+  AngularFireModule.initializeApp(environment.firebase),
+  AngularFirestoreModule,
+]
+
+const materials = [
+  MatCheckboxModule,
+  MatButtonModule,
+  MatTableModule,
+  MatDialogModule,
+  MatFormFieldModule
+]
 
 @NgModule({
   declarations: [
@@ -30,13 +43,10 @@ import { SignupComponent } from './dialogs/signup/signup.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDialogModule,
+    materials,
+    firebase,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    FormsModule,
   ],
   entryComponents: [
     LoginComponent,
