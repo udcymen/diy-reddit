@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MatCheckboxModule, MatButtonModule, MatTableModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -47,6 +47,7 @@ const materials = [
     firebase,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     LoginComponent,
