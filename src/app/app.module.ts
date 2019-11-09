@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { MatCheckboxModule, MatButtonModule, MatTableModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
+import { MatCheckboxModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,9 +27,11 @@ const firebase = [
 const materials = [
   MatCheckboxModule,
   MatButtonModule,
-  MatTableModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({

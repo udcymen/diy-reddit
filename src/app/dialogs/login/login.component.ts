@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbPaginationModule, NgbActiveModal, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from  '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +8,16 @@ import {NgbPaginationModule, NgbActiveModal, NgbAlertModule} from '@ng-bootstrap
 })
 
 export class LoginComponent implements OnInit {
-  
-  constructor( public activeModal: NgbActiveModal ) { }
 
-  private closeModal(): void {
-    this.activeModal.close('Modal Closed');
+  private email: string = "";
+  private password: string = "";
+  
+  constructor( private dialog: MatDialog ) { }
+
+  postLogin(){
+    console.log(this.email);
+    console.log(this.password);
+
   }
 
   ngOnInit() {

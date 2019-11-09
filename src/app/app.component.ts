@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './dialogs/login/login.component'
 import { SignupComponent } from './dialogs/signup/signup.component'
