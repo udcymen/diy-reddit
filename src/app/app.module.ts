@@ -10,18 +10,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { AboutComponent } from './views/about/about.component';
 import { PostComponent } from './views/post/post.component';
-import { LoginComponent } from './dialogs/login/login.component';
-import { SignupComponent } from './dialogs/signup/signup.component';
+import { UserProfileComponent } from './views/user-profile/user-profile.component';
+import { AuthService } from './services/auth/auth.service';
+
 
 const firebase = [
   AngularFireModule.initializeApp(environment.firebase),
   AngularFirestoreModule,
+  AngularFireAuthModule,
+  AngularFireStorageModule
 ]
 
 const materials = [
@@ -40,8 +45,7 @@ const materials = [
     HomeComponent,
     AboutComponent,
     PostComponent,
-    LoginComponent,
-    SignupComponent
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -53,11 +57,9 @@ const materials = [
     ReactiveFormsModule,
     NgbModule
   ],
-  entryComponents: [
-    LoginComponent,
-    SignupComponent
+  providers: [
+    AuthService
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
