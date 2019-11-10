@@ -75,7 +75,7 @@ export class AuthService {
   // Error Handling
   // ========================================
   private handleError(error) {
-    this.toastr.error(error.message, "Error", { timeOut: 3000 });
+    this.toastr.error(error.message, "Error While Logging in");
     console.error(error)
   }
 
