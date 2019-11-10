@@ -43,6 +43,17 @@ export class AuthService {
   }
 
   // ========================================
+  // Email and Password Sign Up Auth
+  // ========================================
+  emailSignIn(email: string, password: string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then(credential => {
+        return this.updateUserData(credential.user);
+      })
+      .catch(error => this.handleError(error) );
+  }
+
+  // ========================================
   // Update User Data
   // ========================================
   private updateUserData({ uid, email, displayName, photoURL }: User){
@@ -70,8 +81,11 @@ export class AuthService {
   // ========================================
   async googleSignin(){
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user)
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then(credential => {
+        return this.updateUserData(credential.user);
+      })
+      .catch(error => this.handleError(error) );
   }
 
   // ========================================
