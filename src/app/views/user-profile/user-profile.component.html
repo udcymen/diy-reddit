@@ -14,20 +14,20 @@
     <div class="text-center">
         <h4 class="modal-title">Sign in</h4>
     </div>
-    <div class="form-row justify-content-center">
+    <form class="form-row justify-content-center" [formGroup]="signinForm" (ngSubmit)="signin()">
         <div class="form-group col-md-3">
             <div class="input-group mx-auto mb-3">
-                <input class="form-control" type="email" size="2" placeholder="Email">
+                <input class="form-control" type="text" size="2" placeholder="Username" formControlName="email" required>
             </div>
             <div class="input-group mx-auto mb-3">
-                <input class="form-control" type="password" size="2" placeholder="Password">
+                <input class="form-control" type="text" size="2" placeholder="Password" formControlName="password" required>
             </div>
         </div>
-    </div>
+        <button type="submit" [disabled]="!signinForm.valid">Submit</button>
+    </form>
     <div class="text-center">
-        <button type="button" class="btn btn-primary" (click)="auth.emailSignIn(email.value, password.value)">Sign in</button>
         <button class="button" class="btn btn-light mx-3 btn-lg" (click)="auth.googleSignin()">
-            <img src="assets/img/new-google-favicon-512.png" width=30px>
+            Login With Google
         </button>
     </div>
     <div class="text-center">
@@ -37,7 +37,7 @@
             <a href="">Forgot Password</a>
         </div>
         <div class="text-center">
-            <p>New to Reddit? <a href="">Sign up</a></p>
+            <p>New to askreddit? <a routerLink='/sign-up'>Sign up</a></p>
         </div>
     </div>
 </ng-template>
