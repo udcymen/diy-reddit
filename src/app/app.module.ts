@@ -18,7 +18,6 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
-import { AboutComponent } from './views/about/about.component';
 import { PostComponent } from './views/post/post.component';
 import { UserProfileComponent } from './views/user-profile/user-profile.component';
 import { AuthService } from './services/auth/auth.service';
@@ -47,7 +46,6 @@ const materials = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
     PostComponent,
     UserProfileComponent,
     SignUpComponent

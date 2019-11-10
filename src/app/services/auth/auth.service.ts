@@ -38,14 +38,17 @@ export class AuthService {
   emailSignUp(email: string, password: string, name: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        credential.user.displayName = name;
-        return this.updateUserData(credential.user);
+        credential.user.updateProfile({
+          displayName: name
+        }).then(() => {
+          return this.updateUserData(credential.user);
+        })
       })
       .catch(error => this.handleError(error) );
   }
 
   // ========================================
-  // Email and Password Sign Up Auth
+  // Email and Password Sign In Auth
   // ========================================
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
