@@ -14,6 +14,11 @@ export class SignUpComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public auth: AuthService) { }
 
+  passwordValidator(form: FormGroup){
+    const condition = form.get('password').value !== form.get('comfirm_password').value
+    return condition ? { passwordsDoNotMatch: true} : null;
+  }
+
   ngOnInit() {
     this.signupForm = this.fb.group({
       'email': ['', [
@@ -29,9 +34,6 @@ export class SignUpComponent implements OnInit {
         ]
       ],
       'comfirm_password': ['', [
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
-        Validators.minLength(6),
-        Validators.maxLength(25),
         Validators.required
         ]
       ],
@@ -44,7 +46,7 @@ export class SignUpComponent implements OnInit {
         ]
       ],
     }, {
-      validator: PasswordValidation.MatchPassword
+      validator: this.passwordValidator
     });
   }
 
@@ -56,17 +58,4 @@ export class SignUpComponent implements OnInit {
     return this.auth.emailSignUp(this.email, this.password, this.name)
   }
 
-}
-
-export class PasswordValidation {
-
-  static MatchPassword(AC: AbstractControl) {
-     let password = AC.get('password').value; // to get value in input tag
-     let confirmPassword = AC.get('comfirm_password').value; // to get value in input tag
-      if(password != confirmPassword) {
-          AC.get('comfirm_password').setErrors( {MatchPassword: true} )
-      } else {
-          return null
-      }
-  }
 }

@@ -7,34 +7,39 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
                 <label for="email">Email</label>
-                <div class="input-group mx-auto mb-3">
-                    <input type="email" formControlName="email" size="2" class="form-control">
-                    <div *ngIf="email.invalid && email.dirty">
+                <div class="mx-auto mb-3">
+                    <input type="email" formControlName="email" class="form-control">
+                    <mat-error *ngIf="email.valid && email.dirty">
                         Your email doesn't look quite right...
-                    </div>
+                    </mat-error>
                 </div>
                 <label for="password">Password</label>
-                <div class="input-group mx-auto mb-3">
+                <div class="mx-auto mb-3">
                     <input type="password" size="2" class="form-control" formControlName="password" required>
-
-                    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                    <mat-error *ngIf="password.invalid">
                         Password must be between 6 and 24 chars and have at least one number
-                    </div>
+                    </mat-error>
                 </div>
                 <label for="comfirm_password">Comfirm Password</label>
-                <div class="input-group mx-auto mb-3">
+                <div class="mx-auto mb-3">
                     <input type="password" size="2" class="form-control" formControlName="comfirm_password" required>
-                    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                    <mat-error *ngIf="signupForm.hasError('passwordsDoNotMatch')">
                         Password does not match
-                    </div>
+                    </mat-error >
                 </div>
                 <label for="first_name">First Name</label>
-                <div class="input-group mx-auto mb-3">
+                <div class="mx-auto mb-3">
                     <input type="text" size="2" class="form-control" formControlName="first_name" required>
+                    <mat-error *ngIf="password.invalid">
+                        Please enter your first name
+                    </mat-error>
                 </div>
                 <label for="last_name">Last Name</label>
-                <div class="input-group mx-auto mb-3">
+                <div class="mx-auto mb-3">
                     <input type="text" size="2" class="form-control" formControlName="last_name" required>
+                    <mat-error *ngIf="password.invalid">
+                        Please enter your last name
+                    </mat-error>
                 </div>
             </div>
         </div>
