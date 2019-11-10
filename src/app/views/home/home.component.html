@@ -6,3 +6,15 @@
     </select>
     <input class="form-control col-lg-6" type="search" placeholder="Search Reddit">
 </div>
+
+<div [hidden]="postsJson.length==0">
+    <div *ngFor="let post of postsJson" (click)='openPost(post.id)' class="clickable">
+        <div class="container-fluid">
+            <p>Title: {{ post.title }}</p>
+            <p>Content: {{ post.content }}</p>
+            <p>Author: {{ post.author }}</p>
+            <p>UpVote: {{ post.upVote }}</p>
+            <p>DownVote: {{ post.downVote }}</p>
+        </div>
+    </div>
+</div>

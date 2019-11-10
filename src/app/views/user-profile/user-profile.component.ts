@@ -11,7 +11,12 @@ export class UserProfileComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  constructor(public fb: FormBuilder, public auth: AuthService) { }
+  constructor(
+    public fb: FormBuilder, 
+    public auth: AuthService
+  ) {
+    
+  }
 
   ngOnInit() {
     this.signinForm = this.fb.group({

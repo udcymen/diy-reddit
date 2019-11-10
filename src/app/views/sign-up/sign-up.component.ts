@@ -12,7 +12,12 @@ export class SignUpComponent implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor(public fb: FormBuilder, public auth: AuthService) { }
+  constructor(
+    public fb: FormBuilder, 
+    public auth: AuthService
+  ) { 
+    
+  }
 
   passwordValidator(form: FormGroup){
     const condition = form.get('password').value !== form.get('comfirm_password').value
