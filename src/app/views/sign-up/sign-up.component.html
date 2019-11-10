@@ -1,39 +1,48 @@
 <ng-container *ngIf="(auth.user | async) || {} as user">
 
+    <h3 class="text-center">New User Signup</h3>
+
     <form [formGroup]="signupForm" *ngIf="!user.uid" (ngSubmit)="signup()">
-        
-        <h3>New User Signup</h3>
 
-        <label for="email">Email</label>
-        <input type="email" formControlName="email">
+        <div class="form-row justify-content-center">
+            <div class="form-group col-md-3">
+                <label for="email">Email</label>
+                <div class="input-group mx-auto mb-3">
+                    <input type="email" formControlName="email" size="2" class="form-control">
+                    <div *ngIf="email.invalid && email.dirty">
+                        Your email doesn't look quite right...
+                    </div>
+                </div>
+                <label for="password">Password</label>
+                <div class="input-group mx-auto mb-3">
+                    <input type="password" size="2" class="form-control" formControlName="password" required>
 
-        <div class="alert alert-danger" *ngIf="email.invalid && email.dirty">
-            Your email doesn't look quite right...
+                    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                        Password must be between 6 and 24 chars and have at least one number
+                    </div>
+                </div>
+                <label for="comfirm_password">Comfirm Password</label>
+                <div class="input-group mx-auto mb-3">
+                    <input type="password" size="2" class="form-control" formControlName="comfirm_password" required>
+                    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                        Password does not match
+                    </div>
+                </div>
+                <label for="first_name">First Name</label>
+                <div class="input-group mx-auto mb-3">
+                    <input type="text" size="2" class="form-control" formControlName="first_name" required>
+                </div>
+                <label for="last_name">Last Name</label>
+                <div class="input-group mx-auto mb-3">
+                    <input type="text" size="2" class="form-control" formControlName="last_name" required>
+                </div>
+            </div>
         </div>
 
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" required>
+        <div *ngIf="signupForm.valid">Form looks good! Let's do this.</div>
 
-        <div class="alert alert-danger" *ngIf="password.invalid && password.touched" >
-            Password must be between 6 and 24 chars and have at least one number 
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Submit</button>
         </div>
-
-        <label for="comfirm_password">Comfirm Password</label>
-        <input type="password" formControlName="comfirm_password" required>
-
-        <div class="alert alert-danger" *ngIf="password.invalid && password.touched" >
-            Password does not match
-        </div>
-
-        <label for="first_name">First Name</label>
-        <input type="text" formControlName="first_name" required>
-
-        <label for="last_name">Last Name</label>
-        <input type="text" formControlName="last_name" required>
-
-        <div *ngIf="signupForm.valid" >Form looks good! Let's do this.</div>
-
-        <button type="submit" [disabled]="!signupForm.valid">Submit</button>
-
     </form>
 </ng-container>
