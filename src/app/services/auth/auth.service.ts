@@ -6,6 +6,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -73,6 +75,7 @@ export class AuthService {
   // Error Handling
   // ========================================
   private handleError(error) {
+    this.toastr.error(error.message, "Error", { timeOut: 3000 });
     console.error(error)
   }
 
