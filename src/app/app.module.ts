@@ -13,10 +13,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
-import { AboutComponent } from './views/about/about.component';
 import { PostComponent } from './views/post/post.component';
 import { UserProfileComponent } from './views/user-profile/user-profile.component';
 import { AuthService } from './services/auth/auth.service';
@@ -37,14 +38,14 @@ const materials = [
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  CommonModule,
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
     PostComponent,
     UserProfileComponent,
     SignUpComponent
@@ -57,7 +58,13 @@ const materials = [
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    CommonModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [
     AuthService
