@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,38 +30,21 @@ export class AuthService {
     );
   }
 
-  // Sign up with email/password
-  emailSignUp(email, password) {
+  // ========================================
+  // Email and Password Sign Up Auth
+  // ========================================
+  emailSignUp(email: string, password: string, name: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        window.alert("You have been successfully registered!");
-        console.log(result.user)
-      }).catch((error) => {
-        window.alert(error.message)
+      .then(credential => {
+        credential.user.displayName = name;
+        return this.updateUserData(credential.user);
       })
+      .catch(error => this.handleError(error) );
   }
 
-  // Sign in with email/password
-  emailSignIn(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-         this.router.navigate(['/account']);
-      }).catch((error) => {
-        window.alert(error.message)
-      })
-  }
-
-  async googleSignin(){
-    const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user)
-  }
-
-  async signOut(){
-    await this.afAuth.auth.signOut();
-    return this.router.navigate(['/account']);
-  }
-
+  // ========================================
+  // Update User Data
+  // ========================================
   private updateUserData({ uid, email, displayName, photoURL }: User){
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
@@ -70,9 +54,31 @@ export class AuthService {
       email,
       displayName,
       photoURL
-    } 
-
+    }
     return userRef.set(data, { merge: true })
   }
 
+  // ========================================
+  // Error Handling
+  // ========================================
+  private handleError(error) {
+    console.error(error)
+  }
+
+  // ========================================
+  // Google Login Route
+  // ========================================
+  async googleSignin(){
+    const provider = new auth.GoogleAuthProvider();
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    return this.updateUserData(credential.user)
+  }
+
+  // ========================================
+  // Gerneal Sign out
+  // ========================================
+  async signOut(){
+    await this.afAuth.auth.signOut();
+    return this.router.navigate(['/account']);
+  }
 }

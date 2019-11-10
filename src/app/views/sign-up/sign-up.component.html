@@ -1,0 +1,26 @@
+<ng-container *ngIf="(auth.user | async) || {} as user">
+
+    <form [formGroup]="signupForm" *ngIf="!user.uid" (ngSubmit)="signup()">
+        
+        <h3>New User Signup</h3>
+
+        <label for="email">Email</label>
+        <input type="email" formControlName="email">
+
+        <div *ngIf="email.invalid && email.dirty">
+            Your email doesn't look quite right...
+        </div>
+
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" required>
+
+        <div *ngIf="password.invalid && password.touched" >
+            Password must be between 6 and 24 chars and have at least one number 
+        </div>
+
+        <div *ngIf="signupForm.valid" >Form looks good! Let's do this.</div>
+
+        <button type="submit" [disabled]="!signupForm.valid">Submit</button>
+
+    </form>
+</ng-container>
