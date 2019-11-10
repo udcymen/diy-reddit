@@ -1,6 +1,6 @@
 <div *ngIf="auth.user$ | async as user; else login">
     <h3>Hello, {{ user.displayName }}</h3>
-    <img  [src]="user.photoURL">
+    <img [src]="user.photoURL">
     <p>Email: {{ user.email }}</p>
     <p>UID: {{ user.uid }}</p>
     <button class="button" (click)="auth.signOut()">Sign Out</button>
@@ -8,17 +8,36 @@
 
 <!-- User NOT logged in -->
 <ng-template #login>
-    <div class="authBlock">
-        <h3>Sign In</h3>
-        <div class="formGroup">
-          <input type="text" class="formControl" placeholder="Username" #email required>
-        </div>
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #password required>
-        </div>
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Log in" (click)="auth.emailSignin(email.value, password.value)">
-        </div>
-     </div>`
-    <button class="button" (click)="auth.googleSignin()">Login with Google</button>
+  <div class="text-center">
+      <img src="assets/img/oIZJpCMP_400x400.jpg" width=60px alt="">
+  </div>
+  <div class="text-center">
+      <h4 class="modal-title">Sign in</h4>
+  </div>
+  <div class="form-row justify-content-center">
+      <div class="form-group col-md-3">
+          <div class="input-group mx-auto mb-3">
+              <input class="form-control" type="text" size="2" placeholder="Username">
+          </div>
+          <div class="input-group mx-auto mb-3">
+              <input class="form-control" type="text" size="2" placeholder="Password">
+          </div>
+      </div>
+  </div>
+  <div class="text-center">
+      <button type="button" class="btn btn-primary">Sign in</button>
+      <button class="button" class="btn btn-light mx-3 btn-lg" (click)="auth.googleSignin()">
+        <img src="assets/img/new-google-favicon-512.png" width=30px>
+      </button>
+  </div>
+  <div class="text-center">
+      <div>
+          <a href="">Forgot Username</a>
+          <span> · </span>
+          <a href="">Forgot Password</a>
+      </div>
+      <div class="text-center">
+          <p>New to Reddit? <a href="">Sign up</a></p>
+      </div>
+  </div>
 </ng-template>
