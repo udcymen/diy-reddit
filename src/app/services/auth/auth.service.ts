@@ -29,6 +29,27 @@ export class AuthService {
     );
   }
 
+  // Sign up with email/password
+  emailSignUp(email, password) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        window.alert("You have been successfully registered!");
+        console.log(result.user)
+      }).catch((error) => {
+        window.alert(error.message)
+      })
+  }
+
+  // Sign in with email/password
+  emailSignIn(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((result) => {
+         this.router.navigate(['/account']);
+      }).catch((error) => {
+        window.alert(error.message)
+      })
+  }
+
   async googleSignin(){
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
