@@ -18,25 +18,25 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
                 <label for="email">Email</label>
-                <div class="input-group mx-auto mb-3">
-                    <input type="email" formControlName="email" size="2" class="form-control">
-                    <div *ngIf="email.invalid && email.dirty">
+                <div class="mx-auto mb-3">
+                    <input type="email" formControlName="email" size="2" class="form-control" required>
+                    <mat-error>
                         Your email doesn't look quite right...
-                    </div>
+                    </mat-error>
                 </div>
                 <label for="password">Password</label>
-                <div class="input-group mx-auto mb-3">
-                    <input type="password" size="2" class="form-control" formControlName="password" required>
-                    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                <div class="mx-auto mb-3">
+                    <input type="password" formControlName="password" size="2" class="form-control" required>
+                    <mat-error>
                         Password must be between 6 and 24 chars and have at least one number
-                    </div>
+                    </mat-error>
                 </div>
             </div>
         </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" [disabled]="!signinForm.valid">Log in</button>
+        </div>
     </form>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit" [disabled]="!signinForm.valid">Log in</button>
-    </div>
 
     <div class="text-center">
         <div class="mt-3">
