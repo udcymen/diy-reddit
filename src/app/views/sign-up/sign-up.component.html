@@ -7,16 +7,29 @@
         <label for="email">Email</label>
         <input type="email" formControlName="email">
 
-        <div *ngIf="email.invalid && email.dirty">
+        <div class="alert alert-danger" *ngIf="email.invalid && email.dirty">
             Your email doesn't look quite right...
         </div>
 
         <label for="password">Password</label>
         <input type="password" formControlName="password" required>
 
-        <div *ngIf="password.invalid && password.touched" >
+        <div class="alert alert-danger" *ngIf="password.invalid && password.touched" >
             Password must be between 6 and 24 chars and have at least one number 
         </div>
+
+        <label for="comfirm_password">Comfirm Password</label>
+        <input type="password" formControlName="comfirm_password" required>
+
+        <div class="alert alert-danger" *ngIf="password.invalid && password.touched" >
+            Password does not match
+        </div>
+
+        <label for="first_name">First Name</label>
+        <input type="text" formControlName="first_name" required>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" formControlName="last_name" required>
 
         <div *ngIf="signupForm.valid" >Form looks good! Let's do this.</div>
 

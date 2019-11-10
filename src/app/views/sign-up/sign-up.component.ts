@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 
@@ -29,6 +29,13 @@ export class SignUpComponent implements OnInit {
         Validators.required
         ]
       ],
+      'comfirm_password': ['', [
+        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.minLength(6),
+        Validators.maxLength(25),
+        Validators.required
+        ]
+      ],
       'first_name': ['', [
         Validators.required
         ]
@@ -37,6 +44,8 @@ export class SignUpComponent implements OnInit {
         Validators.required
         ]
       ],
+    }, {
+      validator: PasswordValidation.MatchPassword
     });
   }
 
@@ -48,4 +57,17 @@ export class SignUpComponent implements OnInit {
     return this.auth.emailSignUp(this.email, this.password, this.name)
   }
 
+}
+
+export class PasswordValidation {
+
+  static MatchPassword(AC: AbstractControl) {
+     let password = AC.get('password').value; // to get value in input tag
+     let confirmPassword = AC.get('comfirm_password').value; // to get value in input tag
+      if(password != confirmPassword) {
+          AC.get('comfirm_password').setErrors( {MatchPassword: true} )
+      } else {
+          return null
+      }
+  }
 }
