@@ -6,7 +6,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/user.model';
-import { ToastrService } from 'ngx-toastr';
+import { ErrorService } from '../errorHandle/error.service'
 
 
 @Injectable({
@@ -19,7 +19,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private toastr: ToastrService
+    private err: ErrorService, 
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -44,7 +44,9 @@ export class AuthService {
           return this.updateUserData(credential.user);
         })
       })
-      .catch(error => this.handleError(error) );
+      .catch(error => 
+        this.err.showError(error.message, "Error While Signing in"),
+      );
   }
 
   // ========================================
@@ -55,7 +57,9 @@ export class AuthService {
       .then(credential => {
         return this.updateUserData(credential.user);
       })
-      .catch(error => this.handleError(error) );
+      .catch(error => 
+        this.err.showError(error.message, "Error While Signing in"),
+      );
   }
 
   // ========================================
@@ -74,13 +78,7 @@ export class AuthService {
     return userRef.set(data, { merge: true })
   }
 
-  // ========================================
-  // Error Handling
-  // ========================================
-  private handleError(error) {
-    this.toastr.error(error.message, "Error While Logging in");
-    console.error(error)
-  }
+
 
   // ========================================
   // Google Login Route
@@ -91,7 +89,9 @@ export class AuthService {
       .then(credential => {
         return this.updateUserData(credential.user);
       })
-      .catch(error => this.handleError(error) );
+      .catch(error => 
+        this.err.showError(error.message, "Error While Signing in"),
+      );
   }
 
   // ========================================
