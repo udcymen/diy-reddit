@@ -5,6 +5,7 @@
         <option>Top</option>
     </select>
     <input class="form-control col-lg-6" type="search" placeholder="Search Reddit">
+    <button type="submit" class="btn btn-sm btn-light">New Post</button>
 </div>
 
 <div [hidden]="postsJson.length==0">
@@ -17,9 +18,9 @@
                 <!-- <p>Author: {{ post.author }}</p> -->
                 <form class="form-inline">
                 <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">{{ post.upVote }}</button>
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">{{ post.downVote }}</button>
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/25663.svg" width="30"></button>
+                    <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">{{ post.upVote }}</button>
+                    <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">{{ post.downVote }}</button>
+                    <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/25663.svg" width="30"></button>
                 </div>
             </form>
             </div>

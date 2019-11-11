@@ -7,17 +7,17 @@ import { Post } from '../../models/post.model';
   providedIn: 'root'
 })
 export class PostService {
-  posts: AngularFirestoreCollection<Post>;
+  private postsCollection: AngularFirestoreCollection<Post>;
   private postDoc: AngularFirestoreDocument<Post>;
 
   constructor(
     private afs: AngularFirestore
   ) { 
-    this.posts = afs.collection<Post>("posts");
+    this.postsCollection = this.afs.collection('posts');
   }
 
   addPost(post){
-    this.posts.add(post);
+    this.postsCollection.add(post);
   }
 
   updatePost(id, update){

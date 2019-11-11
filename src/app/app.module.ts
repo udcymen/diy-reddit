@@ -22,6 +22,7 @@ import { PostComponent } from './views/post/post.component';
 import { UserProfileComponent } from './views/user-profile/user-profile.component';
 import { AuthService } from './services/auth/auth.service';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
+import { CreatePostComponent } from './views/create-post/create-post.component';
 
 
 const firebase = [
@@ -48,7 +49,8 @@ const materials = [
     HomeComponent,
     PostComponent,
     UserProfileComponent,
-    SignUpComponent
+    SignUpComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
