@@ -16,14 +16,6 @@ export class PostService {
     this.postsCollection = this.afs.collection('posts');
   }
 
-  getPost(id){
-    let result: firebase.firestore.DocumentData;
-    this.postsCollection.doc(id).get().forEach(documentSnapshot => {
-      result = documentSnapshot.data();
-    })
-    return result;
-  }
-
   addPost(title, content, name){
     this.postsCollection.add({
       title: title,
