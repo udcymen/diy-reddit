@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, QuerySnapshot } from '@angular/fire/firestore'
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
   postsJson: any[] = [];
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private router: Router,
   ) { 
     this.postsCollection = this.afs.collection('posts');
     this.getAllPosts();
@@ -31,5 +33,9 @@ export class HomeComponent implements OnInit {
         this.postsJson.push(snapshot);
       })
     })
+  }
+
+  openPost(postId){
+    return this.router.navigate([`/post/${postId}`]);
   }
 }

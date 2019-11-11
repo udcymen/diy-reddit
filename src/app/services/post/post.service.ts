@@ -16,8 +16,28 @@ export class PostService {
     this.postsCollection = this.afs.collection('posts');
   }
 
-  addPost(post){
-    this.postsCollection.add(post);
+  getPost(id){
+    let result: firebase.firestore.DocumentData;
+    this.postsCollection.doc(id).get().forEach(documentSnapshot => {
+      result = documentSnapshot.data();
+    })
+    return result;
+  }
+
+  addPost(title, content, name){
+    this.postsCollection.add({
+      title: title,
+      content: content,
+      author: name,
+      upVote: 0,
+      downVote: 0
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
   }
 
   updatePost(id, update){

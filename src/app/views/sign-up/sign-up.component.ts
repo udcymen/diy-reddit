@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,8 +13,8 @@ export class SignUpComponent implements OnInit {
   signupForm: FormGroup;
 
   constructor(
-    public fb: FormBuilder, 
-    public auth: AuthService
+    private fb: FormBuilder, 
+    private auth: AuthService
   ) { 
     
   }
@@ -30,11 +30,11 @@ export class SignUpComponent implements OnInit {
 
   createForm() {
     this.signupForm = this.fb.group({
-      'email': new FormControl('', [
+      'email': ['', [
         Validators.required,
         Validators.email
         ]
-      ),
+      ],
       'password': ['', [
         Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
         Validators.minLength(6),

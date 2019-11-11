@@ -1,1 +1,22 @@
-<p>post works!</p>
+<div *ngIf="post | async as post">
+    <h2>Post Detail</h2>
+    <div class="container-fluid">
+        <div class="container p-3 mb-4 bg-light text-dark mt-4">
+            <h2>Title: {{ post.title }}</h2>
+            <p>Content: {{ post.content }}</p>
+            <p>author: {{ post.author }}</p>
+            <form class="form-inline">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-light">
+                        <img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">
+                        {{ post.upVote }}
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-light">
+                        <img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">
+                        {{ post.downVote }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

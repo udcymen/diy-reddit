@@ -16,7 +16,6 @@
     <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Your post</h5>
     </div>
-
 </div>
 
 <!-- User NOT logged in -->
@@ -32,17 +31,21 @@
             <div class="form-group col-md-3">
                 <label for="email">Email</label>
                 <div class="mx-auto mb-3">
-                    <input type="email" formControlName="email" size="2" class="form-control" required>
-                    <mat-error>
-                        Your email doesn't look quite right...
-                    </mat-error>
+                    <input type="email" formControlName="email" id='email' class="form-control" required>
+                    <div *ngIf="signinForm.get('email').touched">
+                        <mat-error *ngIf="signinForm.get('email').invalid">
+                            Please correct email address
+                        </mat-error>
+                    </div>
                 </div>
                 <label for="password">Password</label>
                 <div class="mx-auto mb-3">
-                    <input type="password" formControlName="password" size="2" class="form-control" required>
-                    <mat-error>
-                        Password must be between 6 and 24 chars and have at least one number
-                    </mat-error>
+                    <input type="password" size="2" class="form-control" formControlName="password" required>
+                    <div *ngIf="signinForm.get('password').touched">
+                        <mat-error *ngIf="signinForm.get('password').invalid">
+                            Password must be between 6 and 24 chars and have at least one number
+                        </mat-error>
+                    </div>
                 </div>
             </div>
         </div>

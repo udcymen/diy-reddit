@@ -12,8 +12,8 @@ export class UserProfileComponent implements OnInit {
   signinForm: FormGroup;
 
   constructor(
-    public fb: FormBuilder, 
-    public auth: AuthService
+    private fb: FormBuilder, 
+    private auth: AuthService
   ) {
     
   }

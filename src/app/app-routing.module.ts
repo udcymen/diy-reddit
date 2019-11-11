@@ -9,7 +9,7 @@ import { CreatePostComponent } from './views/create-post/create-post.component';
 const routes: Routes = [
   {path:'', redirectTo:'home', pathMatch:'full'},
   {path:'home', component: HomeComponent},
-  {path:'post', component: PostComponent},
+  {path:'post/:id', component: PostComponent},
   {path:'new-post', component: CreatePostComponent},
   {path:'account', component: UserProfileComponent},
   {path:'sign-up', component: SignUpComponent},

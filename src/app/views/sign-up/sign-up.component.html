@@ -22,7 +22,7 @@
                 <div class="mx-auto mb-3">
                     <input type="password" size="2" class="form-control" formControlName="password" required>
                     <div *ngIf="signupForm.get('password').touched">
-                        <mat-error *ngIf="signupForm.get('email').invalid">
+                        <mat-error *ngIf="signupForm.get('password').invalid">
                             Password must be between 6 and 24 chars and have at least one number
                         </mat-error>
                     </div>

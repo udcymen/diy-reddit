@@ -32,6 +32,10 @@ export class AuthService {
     );
   }
 
+  getCurrentUser(){
+    return this.afAuth.auth.currentUser.displayName
+  }
+
   // ========================================
   // Email and Password Sign Up Auth
   // ========================================
