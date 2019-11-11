@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, QuerySnapshot } from '@angular/fire/firestore'
-import { PostService } from '../../services/post/post.service';
 import { Post } from '../../models/post.model'
+
 
 @Component({
   selector: 'app-home',

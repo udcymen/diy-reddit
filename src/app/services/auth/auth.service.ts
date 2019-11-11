@@ -6,7 +6,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/user.model';
-import { ErrorService } from '../errorHandle/error.service'
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -19,7 +19,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private err: ErrorService, 
+    private toast: ToastrService, 
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -45,7 +45,7 @@ export class AuthService {
         })
       })
       .catch(error => 
-        this.err.showError(error.message, "Error While Signing in"),
+        this.toast.error(error.message, "Error While Signing in"),
       );
   }
 
@@ -58,7 +58,7 @@ export class AuthService {
         return this.updateUserData(credential.user);
       })
       .catch(error => 
-        this.err.showError(error.message, "Error While Signing in"),
+        this.toast.error(error.message, "Error While Signing in"),
       );
   }
 
@@ -78,8 +78,6 @@ export class AuthService {
     return userRef.set(data, { merge: true })
   }
 
-
-
   // ========================================
   // Google Login Route
   // ========================================
@@ -90,7 +88,7 @@ export class AuthService {
         return this.updateUserData(credential.user);
       })
       .catch(error => 
-        this.err.showError(error.message, "Error While Signing in"),
+        this.toast.error(error.message, "Error While Signing in"),
       );
   }
 

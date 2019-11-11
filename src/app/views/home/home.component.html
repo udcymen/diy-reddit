@@ -5,7 +5,9 @@
         <option>Top</option>
     </select>
     <input class="form-control col-lg-6" type="search" placeholder="Search Reddit">
-    <button type="submit" class="btn btn-sm btn-light">New Post</button>
+    <button type="submit" class="btn btn-sm btn-light">
+        <a routerLink='/new-post'>New Post</a>
+    </button>
 </div>
 
 <div [hidden]="postsJson.length==0">
