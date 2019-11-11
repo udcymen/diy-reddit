@@ -5,8 +5,8 @@
         <option>Top</option>
     </select>
     <input class="form-control col-lg-6" type="search" placeholder="Search Reddit">
-    <button type="submit" class="btn btn-sm btn-light">
-        <a routerLink='/new-post'>New Post</a>
+    <button type="submit" class="btn btn-sm btn-success" routerLink='/new-post'>
+       New Post
     </button>
 </div>
 
@@ -15,6 +15,7 @@
         <div class="container-fluid">
             <div class="container p-3 mb-4 bg-light text-dark mt-4">
                 <h2>Title: {{ post.title }}</h2>
+                <iframe class="text-center" width="600" height="350" src="https://www.youtube.com/embed/Div0iP65aZo" frameborder="0" allowfullscreen=""></iframe>
                 <form class="form-inline">
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">{{ post.upVote }}</button>
