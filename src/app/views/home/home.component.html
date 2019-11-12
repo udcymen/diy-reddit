@@ -4,18 +4,18 @@
         <option>All</option>
         <option>Top</option>
     </select>
-    <input class="form-control col-lg-6" type="search" placeholder="Search Reddit">
+    <input class="form-control col-lg-6" type="search" placeholder="Search askReddit">
     <button type="submit" class="btn btn-sm btn-success" routerLink='/new-post'>
        New Post
     </button>
 </div>
 
 <div [hidden]="postsJson.length==0">
-    <div *ngFor="let post of postsJson" (click)='openPost(post.id)' class="clickable">
-        <div class="container-fluid">
-            <div class="container p-3 mb-4 bg-light text-dark mt-4">
+    <div *ngFor="let post of postsJson" >
+        <div class="container-fluid" (click)='openPost(post.id)' class="clickable">
+            <div class="shadow-lg container p-3 mb-4 bg-light text-dark mt-4 rounded">
                 <h2>Title: {{ post.title }}</h2>
-                <iframe class="text-center" width="600" height="350" src="https://www.youtube.com/embed/Div0iP65aZo" frameborder="0" allowfullscreen=""></iframe>
+                <p>author: {{ post.author }}</p>
                 <form class="form-inline">
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">{{ post.upVote }}</button>

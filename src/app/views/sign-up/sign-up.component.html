@@ -1,6 +1,6 @@
-<div *ngIf="auth.user$ | async as user; else signup">
+<div *ngIf="auth.user$ | async as user; else signup" class="text-center">
     <mat-error>
-        you are already signed in
+        you already signed in
     </mat-error>
 </div>
 
