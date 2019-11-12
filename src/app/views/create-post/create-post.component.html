@@ -1,6 +1,9 @@
 <div *ngIf="auth.user$ | async as user; else notSignIn">
     <form [formGroup]="newPostForm" [hidden]="success" (ngSubmit)="post()">
-        <h3 class="my-3 text-center">New User Signup</h3>
+            <div class="text-center">
+                    <img src="assets/img/football-snoo-1567804843-0174207019155.png" width=60px alt="">
+                </div>
+        <h3 class="my-3 text-center">New post</h3>
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
                 <label for="title">Title</label>
@@ -14,7 +17,7 @@
                 </div>
                 <label for="content">Content</label>
                 <div class="mx-auto mb-3">
-                    <input type="content" size="2" class="form-control" formControlName="content" required>
+                    <textarea type="content" size="2" rows="5" class="form-control" formControlName="content" required></textarea>
                     <div *ngIf="newPostForm.get('content').touched">
                         <mat-error *ngIf="newPostForm.get('content').invalid">
                             Please enter content
