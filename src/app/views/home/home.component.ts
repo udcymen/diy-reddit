@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model'
 import { Router } from '@angular/router';
+import { UpvoteService } from '../../services/upvote/upvote.service'
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
@@ -14,9 +16,13 @@ export class HomeComponent implements OnInit {
   postsCollection: AngularFirestoreCollection<Post>;
   postsJson: any[] = [];
 
+  userVote: number = 0;
+
   constructor(
     private afs: AngularFirestore,
+    private auth: AuthService,
     private router: Router,
+    private upvoteService: UpvoteService
   ) { 
     this.postsCollection = this.afs.collection('posts');
     this.getAllPosts();
@@ -33,6 +39,16 @@ export class HomeComponent implements OnInit {
         this.postsJson.push(snapshot);
       })
     })
+  }
+
+  upvote(postId) {
+    let vote = this.userVote == 1 ? 0 : 1
+    this.upvoteService.updateUserVote(postId, this.auth.getCurrentUserName(), vote)
+  }
+
+  downvote(postId) {
+    let vote = this.userVote == -1 ? 0 : -1
+    this.upvoteService.updateUserVote(postId, this.auth.getCurrentUserName(), vote)
   }
 
   openPost(postId){

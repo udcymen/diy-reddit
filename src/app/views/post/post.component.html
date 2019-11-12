@@ -7,11 +7,11 @@
             <p>author: {{ postJson.author }}</p>
             <form class="form-inline">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-light">
+                    <button type="submit" class="btn btn-sm btn-light" (click)='upvote(postJson.id)'>
                         <img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">
                         {{ postJson.upVote }}
                     </button>
-                    <button type="submit" class="btn btn-sm btn-light">
+                    <button type="submit" class="btn btn-sm btn-light" (click)='downvote(postJson.id)'>
                         <img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">
                         {{ postJson.downVote }}
                     </button>

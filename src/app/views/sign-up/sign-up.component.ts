@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
-    private auth: AuthService
+    private auth: AuthService,
+    private toast: ToastrService, 
   ) { 
     
   }
@@ -64,6 +66,7 @@ export class SignUpComponent implements OnInit {
   get name() { return this.signupForm.get('first_name').value + ' ' + this.signupForm.get('last_name').value }
 
   signup() {
+    this.toast.success();
     return this.auth.emailSignUp(this.email, this.password, this.name)
   }
 

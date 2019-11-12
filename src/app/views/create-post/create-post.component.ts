@@ -42,7 +42,7 @@ export class CreatePostComponent implements OnInit {
   get content() { return this.newPostForm.get('content').value }
 
   post(){
-    this.ps.addPost(this.title, this.content, this.auth.getCurrentUser());
+    this.ps.addPost(this.title, this.content, this.auth.getCurrentUserName());
   }
 
 }

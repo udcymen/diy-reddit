@@ -17,9 +17,17 @@
                 <h2>Title: {{ post.title }}</h2>
                 <form class="form-inline">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">{{ post.upVote }}</button>
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">{{ post.downVote }}</button>
-                        <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/25663.svg" width="30"></button>
+                        <button type="submit" class="btn btn-sm btn-light" (click)='upvote(post.id)'>
+                            <img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg" width="40">
+                            {{ post.upVote }}
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-light" (click)='downvote(post.id)'>
+                            <img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png" width="40">
+                            {{ post.downVote }}
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-light">
+                            <img src="assets/img/25663.svg" width="30">
+                        </button>
                     </div>
                 </form>
             </div>

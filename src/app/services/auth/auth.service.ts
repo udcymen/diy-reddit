@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
 
-  getCurrentUser(){
+  getCurrentUserName(){
     return this.afAuth.auth.currentUser.displayName
   }
 
