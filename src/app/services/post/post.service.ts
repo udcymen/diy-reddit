@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -11,7 +12,8 @@ export class PostService {
   private postDoc: AngularFirestoreDocument<Post>;
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private toast: ToastrService, 
   ) { 
     this.postsCollection = this.afs.collection('posts');
   }
@@ -20,25 +22,23 @@ export class PostService {
     this.postsCollection.add({
       title: title,
       content: content,
-      author: name,
-      upVote: 0,
-      downVote: 0
+      author: name
     })
     .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
+      this.toast.success("Post successfully created");
     })
     .catch(function(error) {
-        console.error("Error adding document: ", error);
+      this.toast.error("Erro when creating post");
     });
   }
 
   updatePost(id, update){
-    this.postDoc = this.afs.doc<Post>(`posts/${id}`);
+    this.postDoc = this.postsCollection.doc(`${id}`);
     this.postDoc.update(update);
   }
 
   deletePost(id){
-    this.postDoc = this.afs.doc<Post>(`posts/${id}`);
+    this.postDoc = this.postsCollection.doc(`${id}`);
     this.postDoc.delete();
   }
 
