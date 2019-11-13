@@ -18,6 +18,7 @@ export class PostService {
 
   postsCollection: AngularFirestoreCollection<Post>;
   user: User;
+  post$: Observable<Post>;
   post: Post;
 
   constructor(
@@ -27,11 +28,10 @@ export class PostService {
     private toast: ToastrService, 
   ) { 
     this.postsCollection = this.afs.collection('posts');
-    this.auth.user$.subscribe(user => this.user = user)
   }
 
-  getPost(postId: string): Observable<Post>{
-    return this.postsCollection
+  getPost(postId: string){
+    this.post$ = this.postsCollection
     .doc(postId)
     .snapshotChanges()
     .pipe(
@@ -41,22 +41,8 @@ export class PostService {
           ...a.payload.data() as Post
         }
       }),
-    );
-  }
-
-  canEdit(postId: string): boolean {
-    if (this.user == null) {
-      this.toast.error("You must login to edit a post");
-      return false
-    }
-    if (this.user.roles.admin){
-      return true
-    } 
-    if (this.user.roles.moderator){
-      return true
-    } 
-    this.getPost(postId).subscribe(post => this.post = post)
-    return this.post.author == this.user.uid
+    )
+    this.post$.subscribe(post => this.post = post);
   }
 
     // ///// Authorization Logic /////

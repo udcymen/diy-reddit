@@ -18,6 +18,7 @@ export class PostsService {
 
   postsCollection: AngularFirestoreCollection<Post>;
   user: User;
+  editOrDelete: Boolean;
 
   constructor(
     private afs: AngularFirestore,
@@ -26,7 +27,8 @@ export class PostsService {
     private toast: ToastrService, 
   ) { 
     this.postsCollection = this.afs.collection('posts');
-    this.auth.user$.subscribe(user => this.user = user)
+    this.auth.user$.subscribe(user => this.user = user);
+
   }
 
   getAllPost(): Observable<Post[]> {
@@ -43,6 +45,7 @@ export class PostsService {
   }
 
   addPost(topic: string, title: string, content: string){
+    const _this = this;
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
     }
@@ -53,10 +56,11 @@ export class PostsService {
       author: this.user.uid
     })
     .then(function(docRef) {
-      this.voteService.createVote(docRef.id)
-      this.toast.success("Post successfully created");
+      _this.voteService.createVote(docRef.id)
+      _this.toast.success("Post successfully created");
     })
     .catch(function(error) {
+      _this.toast.error("Error while logging in");
     });
   }
 }

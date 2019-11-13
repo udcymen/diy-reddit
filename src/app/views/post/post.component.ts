@@ -4,14 +4,13 @@ import { map } from 'rxjs/operators';
 import { PostService } from '../../services/post/post.service'
 import { Post } from '../../models/post.model';
 import { Vote } from '../../models/vote.model';
-import { Role } from '../../models/role.model';
 import { Observable } from 'rxjs';
 import { VoteService } from '../../services/vote/vote.service'
 import { AuthService } from '../../services/auth/auth.service';
 import { sum, values } from 'lodash';
 import { RoleService } from '../../services/role/role.service';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/user.model';
 
 
 @Component({
@@ -26,6 +25,7 @@ export class PostComponent implements OnInit {
   vote$: Observable<Vote>;
   voteCount: number;
   userVote: number = 0;
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,26 +33,30 @@ export class PostComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthService,
     private postService: PostService,
-    private roleService: RoleService
+    private roleService: RoleService,
   ) {
-    
-  }
-
-  ngOnInit() {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe(_id => {
       this.postId = _id;
-      this.post$ = this.postService.getPost(_id);
+      this.postService.getPost(_id);
       this.vote$ = this.voteService.getVote(_id);
       this.vote$.subscribe(upvote => {
         this.voteCount = sum(values(upvote));
       })
     })
+    auth.user$.subscribe(user=>{
+      this.user=user;
+      console.log("User: "+user);
+    });
+  }
+
+  ngOnInit() {
+
   }
 
 
   edit(){
-    console.log(this.postService.canEdit(this.postId))
+    console.log("edit")
   }
 
   delete(){
