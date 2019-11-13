@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, filter } from 'rxjs/operators';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { PostService } from '../../services/post/post.service'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
@@ -9,7 +8,7 @@ import { Vote } from '../../models/vote.model';
 import { Observable } from 'rxjs';
 import { VoteService } from '../../services/vote/vote.service'
 import { AuthService } from '../../services/auth/auth.service';
-import { sum, values } from 'lodash';
+import { filter, conforms, sum, values } from 'lodash';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,8 +22,7 @@ export class PostComponent implements OnInit {
 
   post$: Observable<Post>;
   vote$: Observable<Vote>;
-  upVote$: Observable<Vote>;
-  downVote$: Observable<Vote>;
+  voteCount: number;
   userVote: number = 0;
   userId: string;
 
@@ -69,11 +67,12 @@ export class PostComponent implements OnInit {
     id.subscribe(_id => {
       this.post$ = this.postService.getPost(_id);
       this.vote$ = this.voteService.getVote(_id);
-      this.upVote$ = this.vote$.pipe(filter(vote => vote.itemId. == 1))
-      this.upVote$.subscribe(x => {
-        console.log(x);
+      console.log(this.vote$)
+      this.vote$.subscribe(upvote => {
+        console.log(upvote);
+        this.voteCount = sum(values(upvote));
       })
-    });
+    })
   }
 
   upvote(postId) {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Observable } from 'rxjs';
 import { Vote } from '../../models/vote.model';
-import {map} from 'rxjs/operators';
+import {map, filter} from 'rxjs/operators';
 
 
 @Injectable({
@@ -27,10 +27,9 @@ export class VoteService {
     .pipe(
       map(a => {
         return <Vote>{
-          id: a.payload.id,
           ...a.payload.data() as Vote
         }
-      }),
+      })
     );
   }
 
