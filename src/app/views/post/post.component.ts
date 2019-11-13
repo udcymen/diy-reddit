@@ -45,5 +45,18 @@ export class PostComponent implements OnInit {
     //   this.postJson = res;
     // })
   }
+  updatepostJsontitle(event: Event) {
+    this.postJson.title = (event.target as any).value;
+  }
+  updatepostJsoncontent(event: Event) {
+    this.postJson.content = (event.target as any).value;
+  }
+
+  isEditEnable : boolean = true; // to show and hide the edit button
+
+  onEdit(){
+    this.isEditEnable =!this.isEditEnable;
+}
+
 
 }

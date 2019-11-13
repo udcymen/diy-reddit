@@ -2,12 +2,18 @@
     <div *ngIf="postJson">
         <div class="container-fluid">
             <div class="container p-3 mb-4 bg-light text-dark">
-                <h2>Title: {{ postJson.title }}</h2>
-                <p>author: {{ postJson.author }}</p>
-                <p>Content: {{ postJson.content }}</p>
+                <h2 *ngIf="isEditEnable">Title: {{ postJson.title }}</h2>
+                <input *ngIf="!isEditEnable" class="input-group input-group-lg" [value]="postJson.title" (input)="updatepostJsontitle($event)">
+                
+                <p *ngIf="isEditEnable">{{ postJson.author }}</p>
+                <p *ngIf="isEditEnable">Content: {{ postJson.content }}</p>
+                <textarea *ngIf="!isEditEnable" name="content" id="sd" cols="30" rows="10" [value]="postJson.content" (input)="updatepostJsoncontent($event)"></textarea>
+                <button class="btn btn-sm btn-success mx-3 mt-1" *ngIf="!isEditEnable"
+                                (click)="onEdit()">submit
+                            </button>
                 <form class="form-inline">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-light">
+                        <!-- <button type="submit" class="btn btn-sm btn-light">
                             <img src="assets/img/thumb-uqwtqouqvector-black-and-white-library-did-it-againthe.jpg"
                                 width="40">
                             {{ postJson.upVote }}
@@ -16,11 +22,12 @@
                             <img src="assets/img/231-2318775_bart-clipart-pink-homer-simpson-transparent-background.png"
                                 width="40">
                             {{ postJson.downVote }}
-                        </button>
-                        <button class="btn btn-sm text-muted" (click)="postJson.title = 'blahblahblahblahblah'">
+                        </button> -->
+                        <button class="btn btn-sm text-muted" *ngIf="isEditEnable"
+                        (click)="onEdit()">
                             edit
                         </button>
-                        <button class="btn btn-sm text-muted">
+                        <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm text-muted">
                             share
                         </button>
                         <button class="btn btn-sm text-muted">
