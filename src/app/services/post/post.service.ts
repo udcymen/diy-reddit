@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -16,6 +18,33 @@ export class PostService {
     private toast: ToastrService, 
   ) { 
     this.postsCollection = this.afs.collection('posts');
+  }
+
+  getPost(postId: string): Observable<Post>{
+    return this.postsCollection
+    .doc(postId)
+    .snapshotChanges()
+    .pipe(
+      map(a => {
+        return <Post>{
+          id: a.payload.id,
+          ...a.payload.data() as Post
+        }
+      }),
+    );
+  }
+
+  getAllPost(): Observable<Post[]> {
+    return this.postsCollection
+    .snapshotChanges()
+    .pipe(map(snaps => {
+      return snaps.map(snap => {
+        return <Post>{
+          id: snap.payload.doc.id,
+          ...snap.payload.doc.data()
+        }
+      })
+    }))
   }
 
   addPost(title, content, name){

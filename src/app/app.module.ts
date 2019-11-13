@@ -62,11 +62,7 @@ const materials = [
     ReactiveFormsModule,
     NgbModule,
     CommonModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    })
+    ToastrModule.forRoot(environment.toast)
   ],
   providers: [
     AuthService
