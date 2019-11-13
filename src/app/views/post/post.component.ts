@@ -84,18 +84,4 @@ export class PostComponent implements OnInit {
     let vote = this.userVote == -1 ? 0 : -1
     this.voteService.updateUserVote(postId, this.userId, vote)
   }
-  updatepostJsontitle(event: Event) {
-    this.postJson.title = (event.target as any).value;
-  }
-  updatepostJsoncontent(event: Event) {
-    this.postJson.content = (event.target as any).value;
-  }
-
-  isEditEnable : boolean = true; // to show and hide the edit button
-
-  onEdit(){
-    this.isEditEnable =!this.isEditEnable;
-}
-
-
 }
