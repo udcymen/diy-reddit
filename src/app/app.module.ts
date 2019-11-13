@@ -23,7 +23,7 @@ import { UserProfileComponent } from './views/user-profile/user-profile.componen
 import { AuthService } from './services/auth/auth.service';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { CreatePostComponent } from './views/create-post/create-post.component';
-import {CeiboShare} from 'ng2-social-share';
+import { CeiboShare } from 'ng2-social-share';
 
 const firebase = [
   AngularFireModule.initializeApp(environment.firebase),

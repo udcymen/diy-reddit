@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PostService } from '../../services/post/post.service';
+import { PostsService } from '../../services/posts/posts.service';
 
 
 @Component({
@@ -12,10 +12,11 @@ import { PostService } from '../../services/post/post.service';
 export class CreatePostComponent implements OnInit {
 
   newPostForm: FormGroup;
+  topics: string[] = ['Any', 'Game', 'Music', 'Movie', 'Funny']
 
   constructor(
     private fb: FormBuilder, 
-    private ps: PostService,
+    private postsService: PostsService,
     private auth: AuthService
   ) { 
 
@@ -27,6 +28,10 @@ export class CreatePostComponent implements OnInit {
 
   createForm() {
     this.newPostForm = this.fb.group({
+      'topic': ['', [
+        Validators.required
+        ]
+      ],
       'title': ['', [
         Validators.required
         ]
@@ -38,11 +43,18 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
+   // Choose city using select dropdown
+  changeTopic(e) {
+    this.newPostForm.get('topic').setValue(e.target.value.split(": ")[1]);
+  }
+
+  get topic() { return this.newPostForm.get('topic').value }
   get title() { return this.newPostForm.get('title').value }
   get content() { return this.newPostForm.get('content').value }
 
+
   post(){
-    this.ps.addPost(this.title, this.content, this.auth.getCurrentUserName());
+    this.postsService.addPost(this.topic, this.title, this.content);
   }
 
 }

@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<any>;
+  user$: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -32,8 +32,23 @@ export class AuthService {
     );
   }
 
-  getCurrentUserName(){
-    return this.afAuth.auth.currentUser.displayName
+    // ========================================
+  // Update User Data
+  // ========================================
+  private updateUserData(user){
+    // Sets user data to firestore on login
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
+    const data = { 
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      roles: {
+        user: true
+      }
+    }
+    return userRef.set(data, { merge: true })
   }
 
   // ========================================
@@ -67,22 +82,6 @@ export class AuthService {
   }
 
   // ========================================
-  // Update User Data
-  // ========================================
-  private updateUserData({ uid, email, displayName, photoURL }: User){
-    // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
-
-    const data = { 
-      uid,
-      email,
-      displayName,
-      photoURL
-    }
-    return userRef.set(data, { merge: true })
-  }
-
-  // ========================================
   // Google Login Route
   // ========================================
   async googleSignin(){
@@ -102,5 +101,15 @@ export class AuthService {
   async signOut(){
     await this.afAuth.auth.signOut();
     return this.router.navigate(['/account']);
+  }
+
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean{
+    if (!user) return false
+    for (const role of allowedRoles){
+      if (user.roles[role]){
+        return true
+      }
+    }
+    return false
   }
 }

@@ -20,6 +20,10 @@ export class VoteService {
     this.votesCollection = this.afs.collection('votes');
   }
 
+  createVote(itemId: string){
+    this.votesCollection.doc(`${itemId}`).set({})
+  }
+
   getVote(itemId: string): Observable<Vote>{
     return this.votesCollection
     .doc(itemId)

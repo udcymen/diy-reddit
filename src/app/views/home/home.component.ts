@@ -4,7 +4,7 @@ import { Post } from '../../models/post.model'
 import { Router } from '@angular/router';
 import { VoteService } from '../../services/vote/vote.service'
 import { AuthService } from '../../services/auth/auth.service';
-import { PostService } from '../../services/post/post.service';
+import { PostsService } from '../../services/posts/posts.service';
 import { Observable } from 'rxjs';
 
 
@@ -26,23 +26,13 @@ export class HomeComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private voteService: VoteService,
-    private postService: PostService
+    private postService: PostsService
   ) { 
 
   }
 
   ngOnInit() {
     this.posts$ = this.postService.getAllPost();
-  }
-
-  upvote(postId) {
-    let vote = this.userVote == 1 ? 0 : 1
-    this.voteService.updateUserVote(postId, this.auth.getCurrentUserName(), vote)
-  }
-
-  downvote(postId) {
-    let vote = this.userVote == -1 ? 0 : -1
-    this.voteService.updateUserVote(postId, this.auth.getCurrentUserName(), vote)
   }
 
   openPost(postId){
