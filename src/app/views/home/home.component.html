@@ -14,8 +14,8 @@
     </button>
 </div>
 
-<div [hidden]="posts$.length==0">
-    <div *ngFor="let post of posts$ | async" (click)='openPost(post.id)' class="clickable">
+<div [hidden]="!posts">
+    <div *ngFor="let post of posts" (click)='openPost(post.id)' class="clickable">
         <div class="container-fluid">
             <div class="container p-3 mb-4 bg-light text-dark mt-4">
                 <h2>Title: {{ post.title }}</h2>

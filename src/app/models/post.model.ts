@@ -5,5 +5,5 @@ export interface Post {
     content: string;
     topic: string;
     author: string;
-    votes: Vote;
+    votes?: Vote;
 }

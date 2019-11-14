@@ -116,13 +116,4 @@ export class AuthService {
     return this.router.navigate(['/account']);
   }
 
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean{
-    if (!user) return false
-    for (const role of allowedRoles){
-      if (user.roles[role]){
-        return true
-      }
-    }
-    return false
-  }
 }

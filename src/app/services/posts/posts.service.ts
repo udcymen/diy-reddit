@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Post } from '../../models/post.model';
 import { User } from '../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../auth/auth.service';
@@ -40,16 +40,18 @@ export class PostsService {
     }))
   }
 
-  addPost(topic: string, title: string, content: string){
+  addPost(topic: string, title: string, content: string): Observable<any>{
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
     }
-    this.postsCollection.add({
-      title: title,
-      content: content,
-      topic: topic,
-      author: this.user.uid,
-      votes: {}
-    })
+    return from(
+      this.postsCollection.add({
+        title: title,
+        content: content,
+        topic: topic,
+        author: this.user.uid,
+        votes: {}
+      })
+    )
   }
 }

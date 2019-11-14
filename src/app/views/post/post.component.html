@@ -7,11 +7,11 @@
                 <p>Content: {{ post.content }}</p>
                 <form class="form-inline">
                     <div class="form-group">
-                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes[user.uid] == 1 }" (click)="upvote()">
+                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == 1 }" (click)="upvote()">
                             upvote
                         </button>
                         <p>{{ voteCount }}</p>
-                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes[user.uid] == -1 }" (click)="downvote()">
+                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == -1 }" (click)="downvote()">
                             downvote
                         </button>
                         <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm text-muted">
