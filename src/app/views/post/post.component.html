@@ -2,29 +2,37 @@
     <div *ngIf="post">
         <div class="container-fluid">
             <div class="container p-3 mb-4 bg-light text-dark">
-                <h2>Title: {{ post.title }}</h2>
-                <p>{{ post.author }}</p>
-                <p>Content: {{ post.content }}</p>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes[user.uid] == 1 }" (click)="upvote()">
-                            upvote
-                        </button>
-                        <p>{{ voteCount }}</p>
-                        <button class="btn btn-sm text-muted" [ngClass]="{'text-danger' : user && post.votes[user.uid] == -1 }" (click)="downvote()">
-                            downvote
-                        </button>
-                        <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm text-muted">
-                            share
-                        </button>
-                        <button class="btn btn-sm text-muted" *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))" (click)="edit()">
-                            edit
-                        </button>
-                        <button class="btn btn-sm text-muted" *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))" (click)="delete()">
-                            delete
-                        </button>
-                    </div>
-                </form>
+                    <div class="form-inline">
+                    <div class="mm-voting">
+                            <input class="mm-voting__upvote" type="button" value="upvote" />
+                            <label>{{ voteCount }}</label>
+                            <input class="mm-voting__downvote" type="button" value="downvote" />
+                          </div>
+                          <div class="mx-4">
+                                <h2>{{ post.title }}</h2>
+
+                          </div>
+            </div>
+                <div class="mx-5">
+                        <p>{{ post.author }}</p>
+                        <p>{{ post.content }}</p>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                
+                                <button class="btn btn-sm text-muted" *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))" (click)="edit()">
+                                    edit
+                                </button>
+                                <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm text-muted">
+                                    share
+                                </button>
+                                <button class="btn btn-sm text-muted" *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))" (click)="delete()">
+                                    delete
+                                </button>
+        
+                            </div>
+                        </form>
+                </div>
+                
             </div>
         </div>
         <div class="container p-3 mb-4 bg-light text-dark "></div>
