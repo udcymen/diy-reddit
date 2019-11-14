@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, flatMap, switchMap } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
 import { PostService } from '../../services/post/post.service'
 import { Post } from '../../models/post.model';
 import { AuthService } from '../../services/auth/auth.service';
@@ -19,6 +19,7 @@ export class PostComponent implements OnInit {
 
   voteCount: number;
   userVote: number = 0;
+  postId: string;
   post: Post;
   user: User;
 
@@ -29,8 +30,28 @@ export class PostComponent implements OnInit {
     private postService: PostService,
   ) {
 
+
+    // forkJoin([
+    //   this.route.params.pipe(
+    //     switchMap(params => {
+    //       this.postId = params['id'];
+    //       return this.postService.getPost(params['id']);
+    //     })
+    //   ),
+    //   auth.user$
+    // ]).subscribe((([post, user]: [Post, User]) => {
+    //   console.log(post);
+    //   console.log(user);
+    //   this.voteCount = sum(values(this.post.votes));
+    //   // this.user = result[1];
+    //   if (this.post.votes && this.post.votes[this.user.uid]){
+    //     this.userVote = this.post.votes[this.user.uid];
+    //   }
+    // }));
+
     this.route.params.pipe(
       switchMap(params => {
+        this.postId = params['id'];
         return this.postService.getPost(params['id']);
       })
     ).subscribe(post => {
@@ -41,6 +62,8 @@ export class PostComponent implements OnInit {
     auth.user$.subscribe(user => {
       this.user = user;
     });
+
+    
 
     // this.postId = params['id'];
     // this.postService.getPost(params['id']);
@@ -112,7 +135,7 @@ export class PostComponent implements OnInit {
   }
 
   delete(){
-    console.log("delete")
+    this.postService.deletePost(this.postId);
   }
 
   upvote() {
@@ -120,7 +143,7 @@ export class PostComponent implements OnInit {
       this.toast.error("You must login to upvote post");
     }
     let vote = this.userVote == 1 ? 0 : 1
-    // this.voteService.updateUserVote(postId, this.userId, vote)
+    this.postService.updateUserVote(this.postId, this.user.uid, vote)
   }
 
   downvote() {
@@ -128,6 +151,6 @@ export class PostComponent implements OnInit {
       this.toast.error("You must login to downvote post");
     }
     let vote = this.userVote == -1 ? 0 : -1
-    // this.voteService.updateUserVote(postId, this.userId, vote)
+    this.postService.updateUserVote(this.postId, this.user.uid, vote)
   }
 }

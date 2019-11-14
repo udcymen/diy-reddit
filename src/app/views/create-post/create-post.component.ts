@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PostsService } from '../../services/posts/posts.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
@@ -15,9 +17,12 @@ export class CreatePostComponent implements OnInit {
   topics: string[] = ['Any', 'Game', 'Music', 'Movie', 'Funny']
 
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private fb: FormBuilder, 
     private postsService: PostsService,
-    private auth: AuthService
+    private toast: ToastrService,
+    private auth: AuthService,
   ) { 
 
   }
@@ -54,7 +59,10 @@ export class CreatePostComponent implements OnInit {
 
 
   post(){
-    this.postsService.addPost(this.topic, this.title, this.content);
+    this.postsService.addPost(this.topic, this.title, this.content).subscribe(postRef => {
+      this.toast.success("Post successfully created with id: " + postRef.id);
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+    });
   }
 
 }
