@@ -141,16 +141,18 @@ export class PostComponent implements OnInit {
   upvote() {
     if (this.user == null){
       this.toast.error("You must login to upvote post");
+    } else{
+      let vote = this.userVote == 1 ? 0 : 1
+      this.postService.updateUserVote(this.postId, this.user.uid, vote)
     }
-    let vote = this.userVote == 1 ? 0 : 1
-    this.postService.updateUserVote(this.postId, this.user.uid, vote)
   }
 
   downvote() {
     if (this.user == null){
       this.toast.error("You must login to downvote post");
+    } else{
+      let vote = this.userVote == -1 ? 0 : -1
+      this.postService.updateUserVote(this.postId, this.user.uid, vote)
     }
-    let vote = this.userVote == -1 ? 0 : -1
-    this.postService.updateUserVote(this.postId, this.user.uid, vote)
   }
 }

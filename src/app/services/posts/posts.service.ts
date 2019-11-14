@@ -40,6 +40,15 @@ export class PostsService {
     }))
   }
 
+  updateUserVote(postId: string, userId: string, vote: number): void {
+    let data = {
+      votes: {
+        userId: vote
+      }
+    }
+    this.postsCollection.doc(`${postId}`).update(data);
+  }
+
   addPost(topic: string, title: string, content: string): Observable<any>{
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
