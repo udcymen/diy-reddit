@@ -6,4 +6,6 @@ export interface Post {
     topic: string;
     author: string;
     votes?: Vote;
+    createdAt: Object;
+    updatedAt: Object;
 }

@@ -48,7 +48,6 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-   // Choose city using select dropdown
   changeTopic(e) {
     this.newPostForm.get('topic').setValue(e.target.value.split(": ")[1]);
   }

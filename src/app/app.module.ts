@@ -24,6 +24,7 @@ import { AuthService } from './services/auth/auth.service';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { CreatePostComponent } from './views/create-post/create-post.component';
 import { CeiboShare } from 'ng2-social-share';
+import { EditPostComponent } from './views/edit-post/edit-post.component';
 
 const firebase = [
   AngularFireModule.initializeApp(environment.firebase),
@@ -51,7 +52,8 @@ const materials = [
     UserProfileComponent,
     SignUpComponent,
     CreatePostComponent,
-    CeiboShare
+    CeiboShare,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

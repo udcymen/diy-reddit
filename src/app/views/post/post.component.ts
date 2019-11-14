@@ -130,9 +130,8 @@ export class PostComponent implements OnInit {
   ngOnInit() {
   }
 
-
   edit(){
-    console.log("edit")
+    return this.router.navigate([`/post/${this.postId}/edit`]);
   }
 
   delete(){
