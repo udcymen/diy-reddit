@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
 import { User } from '../../models/user.model';
-import { Vote } from '../../models/vote.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../auth/auth.service';
 import { isEmpty, intersection } from 'lodash';
+import { firestore } from 'firebase'
 
 
 @Injectable({
@@ -26,6 +26,10 @@ export class PostsService {
   ) { 
     this.postsCollection = this.afs.collection('posts');
     this.auth.user$.subscribe(user => this.user = user);
+  }
+
+  get timestamp() {
+    return firestore.FieldValue.serverTimestamp();
   }
 
   getAllPost(): Observable<Post[]> {
@@ -60,6 +64,8 @@ export class PostsService {
         content: content,
         topic: topic,
         author: this.user.uid,
+        createdAt: this.timestamp,
+        updatedAt: this.timestamp,
         votes: {}
       })
     )

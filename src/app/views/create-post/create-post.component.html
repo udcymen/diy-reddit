@@ -1,8 +1,8 @@
 <div *ngIf="auth.user$ | async as user; else notSignIn">
     <form [formGroup]="newPostForm" [hidden]="success" (ngSubmit)="post()">
-            <div class="text-center">
-                    <img src="assets/img/football-snoo-1567804843-0174207019155.png" width=60px alt="">
-                </div>
+        <div class="text-center">
+            <img src="assets/img/football-snoo-1567804843-0174207019155.png" width=60px alt="">
+        </div>
         <h3 class="my-3 text-center">New post</h3>
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
@@ -12,7 +12,7 @@
                 </select>
                 <label for="title">Title</label>
                 <div class="mx-auto mb-3">
-                    <input type="title" formControlName="title" id='title' class="form-control" required>
+                    <input type="title" formControlName="title" class="form-control" required>
                     <div *ngIf="newPostForm.get('title').touched">
                         <mat-error *ngIf="newPostForm.get('title').invalid">
                             Please enter title
@@ -33,7 +33,6 @@
         <div class="text-center ">
             <button type="submit" class="btn btn-primary" [disabled]="!newPostForm.valid">Submit</button>
             <button type="submit" class="mx-2 btn btn-secondary" routerLink='/home'>Cancel</button>
-
         </div>
     </form>
 </div>
