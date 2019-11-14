@@ -40,7 +40,7 @@ export class PostService {
         [userId]: vote
       }
     }
-    this.postsCollection.doc(`${postId}`).update(data);
+    this.postsCollection.doc(`${postId}`).set(data, { merge: true });
   }
 
   deletePost(id: string): Observable<void>{

@@ -47,7 +47,7 @@ export class PostsService {
         [userId]: vote
       }
     }
-    this.postsCollection.doc(`${postId}`).update(data);
+    this.postsCollection.doc(`${postId}`).set(data, { merge: true });
   }
 
   addPost(topic: string, title: string, content: string): Observable<any>{
