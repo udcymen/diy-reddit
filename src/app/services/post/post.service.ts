@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../auth/auth.service';
 import { isEmpty, intersection } from 'lodash';
-import { VoteService } from '../vote/vote.service'
 
 
 @Injectable({
@@ -17,21 +16,15 @@ import { VoteService } from '../vote/vote.service'
 export class PostService {
 
   postsCollection: AngularFirestoreCollection<Post>;
-  user: User;
-  post$: Observable<Post>;
-  post: Post;
 
   constructor(
-    private afs: AngularFirestore,
-    private auth: AuthService,
-    private voteService: VoteService,
-    private toast: ToastrService, 
+    private afs: AngularFirestore
   ) { 
     this.postsCollection = this.afs.collection('posts');
   }
 
   getPost(postId: string){
-    this.post$ = this.postsCollection
+    return this.postsCollection
     .doc(postId)
     .snapshotChanges()
     .pipe(
@@ -40,12 +33,11 @@ export class PostService {
           id: a.payload.id,
           ...a.payload.data() as Post
         }
-      }),
+      })
     )
-    this.post$.subscribe(post => this.post = post);
   }
 
-    // ///// Authorization Logic /////
+  ///// Authorization Logic /////
 
   // canDelete(postId: string, userId: string): boolean {
   //   const allowed = ['admin']

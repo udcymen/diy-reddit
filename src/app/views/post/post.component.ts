@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { map, flatMap, switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 import { PostService } from '../../services/post/post.service'
 import { Post } from '../../models/post.model';
-import { Vote } from '../../models/vote.model';
-import { Observable } from 'rxjs';
-import { VoteService } from '../../services/vote/vote.service'
 import { AuthService } from '../../services/auth/auth.service';
 import { sum, values } from 'lodash';
-import { RoleService } from '../../services/role/role.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../models/user.model';
 
@@ -20,38 +17,93 @@ import { User } from '../../models/user.model';
 })
 export class PostComponent implements OnInit {
 
-  post$: Observable<Post>;
-  postId: string;
-  vote$: Observable<Vote>;
   voteCount: number;
   userVote: number = 0;
+  post: Post;
   user: User;
 
   constructor(
     private route: ActivatedRoute,
-    private voteService: VoteService,
     private toast: ToastrService,
     private auth: AuthService,
     private postService: PostService,
-    private roleService: RoleService,
   ) {
-    const id: Observable<string> = this.route.params.pipe(map(p => p.id));
-    id.subscribe(_id => {
-      this.postId = _id;
-      this.postService.getPost(_id);
-      this.vote$ = this.voteService.getVote(_id);
-      this.vote$.subscribe(upvote => {
-        this.voteCount = sum(values(upvote));
+
+    this.route.params.pipe(
+      switchMap(params => {
+        return this.postService.getPost(params['id']);
       })
+    ).subscribe(post => {
+      this.post = post;
+      this.voteCount = sum(values(this.post.votes));
     })
-    auth.user$.subscribe(user=>{
-      this.user=user;
-      console.log("User: "+user);
+
+    auth.user$.subscribe(user => {
+      this.user = user;
     });
+
+    // this.postId = params['id'];
+    // this.postService.getPost(params['id']);
+    // this.postService.post$
+    // .pipe(
+    //   flatMap(post => this.post = post)
+    // ).subscribe(post => {
+    //   this.post = post;
+    //   this.voteCount = sum(values(this.post.votes))
+    // })
+    // auth.user$.subscribe(user => {
+    //   this.user = user;
+    // });
+    // this.userVote = post.votes[user.uid] != null ? post.votes[this.user.uid] : 0;
+
+    // forkJoin(
+    //   this.route.params.pipe(
+    //     switchMap(params => {
+    //       return this.postService.getPost(params['id']);
+    //     })
+    //   ),
+    //   this.auth.getCurrentUser()
+    // ).pipe(
+    //   map(([first, second]) => {
+    //     return { first, second };
+    //   })
+    // )
+
+    
+
+
+
+    // this.route.params
+    // .pipe(
+    //   switchMap(params => {
+    //     return this.postService.getPost(params['id']);
+    //   })
+    // ).pipe(
+    //   map(post => this.post = post),
+    //   map(auth.user$.subscribe(user => this.user = user))
+    // ).subscribe(() => {
+    //   this.userVote = this.post.votes[this.user.uid] != null ? this.post.votes[this.user.uid] : 0;
+    // })
+
+
+
+    // const requests = [];
+    // requests.push(this.route.params
+    //   .pipe(
+    //     switchMap(params => {
+    //       return this.postService.getPost(params['id']);
+    //     })
+    //   ).subscribe(post => {
+    //     this.post = post;
+    //   })
+    // )
+    // requests.push(auth.user$.subscribe(user => this.user = user))
+
+    // forkJoin(requests).subscribe( () => this.userVote = this.post.votes[this.user.uid] != null ? this.post.votes[this.user.uid] : 0)
+    
   }
 
   ngOnInit() {
-
   }
 
 
@@ -63,13 +115,19 @@ export class PostComponent implements OnInit {
     console.log("delete")
   }
 
-  // upvote(postId) {
-  //   let vote = this.userVote == 1 ? 0 : 1
-  //   this.voteService.updateUserVote(postId, this.userId, vote)
-  // }
+  upvote() {
+    if (this.user == null){
+      this.toast.error("You must login to upvote post");
+    }
+    let vote = this.userVote == 1 ? 0 : 1
+    // this.voteService.updateUserVote(postId, this.userId, vote)
+  }
 
-  // downvote(postId) {
-  //   let vote = this.userVote == -1 ? 0 : -1
-  //   this.voteService.updateUserVote(postId, this.userId, vote)
-  // }
+  downvote() {
+    if (this.user == null){
+      this.toast.error("You must login to downvote post");
+    }
+    let vote = this.userVote == -1 ? 0 : -1
+    // this.voteService.updateUserVote(postId, this.userId, vote)
+  }
 }

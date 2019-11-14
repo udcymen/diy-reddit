@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class AuthService {
+
   user$: Observable<User>;
 
   constructor(
@@ -32,7 +33,19 @@ export class AuthService {
     );
   }
 
-    // ========================================
+  getCurrentUser(){
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user){
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else{
+          return of(null);
+        }
+      })
+    )
+  }
+
+  // ========================================
   // Update User Data
   // ========================================
   private updateUserData(user){
