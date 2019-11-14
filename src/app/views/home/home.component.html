@@ -28,9 +28,11 @@
                             [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == -1 }"
                             (click)="downvote(post.id)" />
                     </div>
+                    <div class="mx-4">
+                            <h2 class="clickable" (click)='openPost(post.id)'>{{ post.title }}</h2>
+                        </div>
                 </div>
                 <div class="mx-5">
-                    <h2 class="clickable" (click)='openPost(post.id)'>Title: {{ post.title }}</h2>
                     <p>author: {{ post.author }}</p>
                     <form class="form-inline">
                         <div class="form-group">
