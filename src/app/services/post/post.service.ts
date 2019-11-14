@@ -37,7 +37,7 @@ export class PostService {
   updateUserVote(postId: string, userId: string, vote: number): void {
     let data = {
       votes: {
-        userId: vote
+        [userId]: vote
       }
     }
     this.postsCollection.doc(`${postId}`).update(data);

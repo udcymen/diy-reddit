@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
 import { User } from '../../models/user.model';
+import { Vote } from '../../models/vote.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -43,7 +44,7 @@ export class PostsService {
   updateUserVote(postId: string, userId: string, vote: number): void {
     let data = {
       votes: {
-        userId: vote
+        [userId]: vote
       }
     }
     this.postsCollection.doc(`${postId}`).update(data);
