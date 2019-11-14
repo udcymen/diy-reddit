@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit {
   get name() { return this.signupForm.get('first_name').value + ' ' + this.signupForm.get('last_name').value }
 
   signup() {
-    this.toast.success();
+    this.toast.success("Successfully sign up");
     return this.auth.emailSignUp(this.email, this.password, this.name)
   }
 

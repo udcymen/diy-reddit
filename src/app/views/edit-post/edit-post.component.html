@@ -31,7 +31,6 @@
     </div>
     <div class="text-center ">
         <button type="submit" class="btn btn-primary" [disabled]="!postEditForm.valid">Submit</button>
-        <button type="submit" class="mx-2 btn btn-secondary" routerLink='/home'>Cancel</button>
-
+        <button type="submit" class="mx-2 btn btn-secondary" (click)="cancle()">Cancel</button>
     </div>
 </form>

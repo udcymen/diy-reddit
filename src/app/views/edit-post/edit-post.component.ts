@@ -7,7 +7,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import { PostService } from '../../services/post/post.service'
 import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
 import { Post } from '../../models/post.model';
-import { User } from '../../models/user.model';
 
 
 @Component({
@@ -21,7 +20,6 @@ export class EditPostComponent implements OnInit {
   topics: string[] = ['Any', 'Game', 'Music', 'Movie', 'Funny']
   postId: string;
   post: Post;
-  user: User;
 
   constructor(
     private router: Router,
@@ -43,10 +41,6 @@ export class EditPostComponent implements OnInit {
         content: post.content
       })
     })
-
-    auth.user$.subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit() {
@@ -78,8 +72,15 @@ export class EditPostComponent implements OnInit {
   get title() { return this.postEditForm.get('title').value }
   get content() { return this.postEditForm.get('content').value }
 
+  cancle(){
+    this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+  }
+
   submit(){
-    console.log("submit");
+    this.postService.editPost(this.postId, this.topic, this.title, this.content).subscribe(postRef => {
+      this.toast.success("Post successfully updated with id: " + this.postId);
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+    }, error => this.toast.error(error.message));
   }
 
 }
