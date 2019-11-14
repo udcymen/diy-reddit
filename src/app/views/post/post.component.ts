@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { PostService } from '../../services/post/post.service'
@@ -24,7 +24,8 @@ export class PostComponent implements OnInit {
   user: User;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toast: ToastrService,
     private auth: AuthService,
     private postService: PostService,
@@ -49,7 +50,7 @@ export class PostComponent implements OnInit {
     //   }
     // }));
 
-    this.route.params.pipe(
+    this.activatedRoute.params.pipe(
       switchMap(params => {
         this.postId = params['id'];
         return this.postService.getPost(params['id']);
@@ -135,7 +136,10 @@ export class PostComponent implements OnInit {
   }
 
   delete(){
-    this.postService.deletePost(this.postId);
+    this.postService.deletePost(this.postId).subscribe(postRef => {
+      this.toast.success("Post successfully deleted with id: " + this.postId);
+      this.router.navigate(['/home']);
+    }, error => this.toast.error(error.message));
   }
 
   upvote() {
