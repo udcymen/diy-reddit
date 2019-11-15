@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { PostService } from '../../services/post/post.service'
+import { CommentService } from '../../services/comment/comment.service'
 import { Post } from '../../models/post.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { sum, values } from 'lodash';
@@ -29,6 +30,7 @@ export class PostComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthService,
     private postService: PostService,
+    private commentService: CommentService
   ) {
 
 
@@ -156,6 +158,16 @@ export class PostComponent implements OnInit {
     } else{
       let vote = this.userVote == -1 ? 0 : -1
       this.postService.updateUserVote(this.postId, this.user.uid, vote)
+    }
+  }
+
+  comment(itemId: string){
+    if (this.user == null) {
+      this.toast.error("You must login to create a new post");
+    } else{
+      this.commentService.addComment("haha", itemId, this.user.uid).subscribe(commentRef => {
+        this.toast.success("Comment successfully created with id: " + commentRef.id);
+      });
     }
   }
 }
