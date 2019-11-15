@@ -10,14 +10,14 @@
     </select>
     <input class="mx-1 form-control col-lg-6" type="search" placeholder="Search askReddit">
     <button type="submit" class="mx-1 btn btn-sm btn-success" routerLink='/new-post'>
-       New Post
+        New Post
     </button>
 </div>
 
 <div [hidden]="!posts">
     <div *ngFor="let post of posts">
         <div class="container-fluid">
-            <div class="clickable shadow-lg container p-3 mb-4 bg-light text-dark mt-4" >
+            <div class="clickable shadow-lg container p-3 mb-4 bg-light text-dark mt-4">
                 <div class="form-inline">
                     <div class="mm-voting">
                         <input class="mm-voting__upvote" type="button" value="upvote"
@@ -28,17 +28,25 @@
                             [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == -1 }"
                             (click)="downvote(post.id)" />
                     </div>
-                    <div class="mx-4">
-                            <h2 class="clickable" (click)='openPost(post.id)'>{{ post.title }}</h2>
-                        </div>
+                    <div class="mx-4 form-inline">
+                        <h2 class="clickable" (click)='openPost(post.id)'>{{ post.title }}</h2>
+                        <p class="mt-3 mx-5" style="color: grey;">Submited {{ post.createdAt}}</p>
+                    </div>
                 </div>
                 <div class="mx-5">
                     <p>author: {{ post.author }}</p>
+                    <div>
+                            <button  class="btn btn-sm btn-light" *ngIf="isEditEnable" (click)="onEdit()"><img src="assets/img/computer-icons-arrow-drop-down-list-arrow-down-icon-free.jpg" width="25"></button>
+                            <button class="btn btn-sm btn-light" *ngIf="!isEditEnable" (click)="onEdit()"><img src="assets/img/close-150192_640.webp" width="25"></button> 
+                        </div>
+                    <div>
+                        <span *ngIf="!isEditEnable">{{ post.content}}</span>
+                    </div>
+                    
                     <form class="form-inline">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-light">
-                                <img src="assets/img/25663.svg" width="30">
-                            </button>
+                            <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/25663.svg" width="30"></button>
+                            <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm btn-light text-muted">share</button>
                         </div>
                     </form>
                 </div>

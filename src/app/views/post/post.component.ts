@@ -170,4 +170,10 @@ export class PostComponent implements OnInit {
       });
     }
   }
+
+  isEditEnable: boolean = true; // to show and hide the edit button
+
+  onEdit() {
+    this.isEditEnable = !this.isEditEnable;
+  }
 }

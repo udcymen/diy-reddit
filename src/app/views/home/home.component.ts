@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private toast: ToastrService,
     private auth: AuthService,
-  ) { 
+  ) {
     auth.user$.subscribe(user => {
       this.user = user;
     });
@@ -37,43 +37,48 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.postsService.getAllPost()
-    .pipe(
-      map((posts: Post[]) => {
-        posts.forEach((post: Post) => {
-          var _post = post;
-          _post['voteCount'] = sum(values(post.votes));
+      .pipe(
+        map((posts: Post[]) => {
+          posts.forEach((post: Post) => {
+            var _post = post;
+            _post['voteCount'] = sum(values(post.votes));
+          })
+          return posts;
         })
-        return posts;
+      )
+      .subscribe(posts => {
+        this.posts = posts
       })
-    )
-    .subscribe(posts => {
-      this.posts = posts
-    })
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  openPost(postId){
+  openPost(postId) {
     return this.router.navigate([`/post/${postId}`]);
   }
 
   upvote(postId: string) {
-    if (this.user == null){
+    if (this.user == null) {
       this.toast.error("You must login to upvote post");
-    } else{
+    } else {
       let vote = this.userVote == 1 ? 0 : 1
       this.postsService.updateUserVote(postId, this.user.uid, vote)
     }
   }
 
   downvote(postId: string) {
-    if (this.user == null){
+    if (this.user == null) {
       this.toast.error("You must login to downvote post");
-    } else{
+    } else {
       let vote = this.userVote == -1 ? 0 : -1
       this.postsService.updateUserVote(postId, this.user.uid, vote)
     }
+  }
+  isEditEnable: boolean = true; // to show and hide the edit button
+
+  onEdit() {
+    this.isEditEnable = !this.isEditEnable;
   }
 }
