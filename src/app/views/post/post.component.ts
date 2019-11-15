@@ -59,7 +59,7 @@ export class PostComponent implements OnInit, OnDestroy {
         }
       }),
       switchMap(() => {
-        return this.commentService.getRealtedComments(this.postId)
+        return this.commentService.getRelatedComments(this.postId)
       })
     )
     .subscribe(comments => {
@@ -100,11 +100,11 @@ export class PostComponent implements OnInit, OnDestroy {
     }
   }
 
-  comment(itemId: string){
+  comment(itemId: string, content: string){
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
     } else{
-      this.commentService.addComment("haha", itemId, this.user.uid).subscribe(commentRef => {
+      this.commentService.addComment(content, itemId, this.user.uid).subscribe(commentRef => {
         this.toast.success("Comment successfully created with id: " + commentRef.id);
       });
     }
