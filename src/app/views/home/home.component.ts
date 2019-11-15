@@ -47,9 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
               var _post = post;
               _post['voteCount'] = sum(values(post.votes));
               if (user && post.votes){
-                _post['voteCount'] = post.votes[user.uid]
+                _post['userVote'] = post.votes[user.uid]
               } else{
-                _post['voteCount'] = 0
+                _post['userVote'] = 0
               }
             })
             return posts;
@@ -69,28 +69,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     return this.router.navigate([`/post/${postId}`]);
   }
 
-  upvote(postId: string, votes: Object) {
+  upvote(postId: string, userVote: number) {
     if (this.user == null){
       this.toast.error("You must login to upvote post");
     } else{
-      let currentVote = 0
-      if (votes && votes[this.user.uid]){
-        currentVote = votes[this.user.uid]
-      }
-      let vote = currentVote == 1 ? 0 : 1
+      let vote = userVote == 1 ? 0 : 1
       this.postService.updateUserVote(postId, this.user.uid, vote)
     }
   }
 
-  downvote(postId: string, votes: Object) {
+  downvote(postId: string, userVote: number) {
     if (this.user == null){
       this.toast.error("You must login to downvote post");
     } else{
-      let currentVote = 0
-      if (votes && votes[this.user.uid]){
-        currentVote = votes[this.user.uid]
-      }
-      let vote = currentVote == -1 ? 0 : -1
+      let vote = userVote == -1 ? 0 : -1
       this.postService.updateUserVote(postId, this.user.uid, vote)
     }
   }
