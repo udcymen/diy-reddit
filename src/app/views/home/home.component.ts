@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private postService: PostService,
     private postsService: PostsService,
-    private route: ActivatedRoute,
     private toast: ToastrService,
     private auth: AuthService,
   ) { 
@@ -45,12 +44,17 @@ export class HomeComponent implements OnInit, OnDestroy {
           map((posts: Post[]) => {
             posts.forEach((post: Post) => {
               var _post = post;
-              _post['voteCount'] = sum(values(post.votes));
-              if (user && post.votes){
+              if (post.votes){
+                _post['voteCount'] = sum(values(post.votes));
+              } else {
+                _post['voteCount'] = 0;
+              }
+              if (user && post.votes) {
                 _post['userVote'] = post.votes[user.uid]
-              } else{
+              } else {
                 _post['userVote'] = 0
               }
+              _post['show'] = false;
             })
             return posts;
           })
@@ -86,9 +90,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.postService.updateUserVote(postId, this.user.uid, vote)
     }
   }
-  isEditEnable: boolean = true; // to show and hide the edit button
 
-  onEdit() {
-    this.isEditEnable = !this.isEditEnable;
+  onShow(postId: string) {
+    this.posts.forEach(post => {
+      if (post.id === postId){
+        post.show = !post.show
+      }
+    })
   }
 }
