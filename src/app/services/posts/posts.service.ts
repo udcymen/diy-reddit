@@ -26,14 +26,16 @@ export class PostsService {
   getAllPost(): Observable<Post[]> {
     return this.postsCollection
     .snapshotChanges()
-    .pipe(map(snaps => {
-      return snaps.map(snap => {
-        return <Post>{
-          id: snap.payload.doc.id,
-          ...snap.payload.doc.data()
-        }
-      })
-    }))
+    .pipe(
+      map(snaps => {
+        return snaps.map(snap => {
+          return <Post>{
+            id: snap.payload.doc.id,
+            ...snap.payload.doc.data()
+          }
+        })
+      }
+    ))
   }
 
   addPost(topic: string, title: string, content: string, userId: string): Observable<any>{

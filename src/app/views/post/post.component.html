@@ -45,32 +45,22 @@
         </div>
 
         <div class="container p-3 mb-4 bg-light text-dark ">
-            <div class="mr-3">
-                <div class="comment">
-                    <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                    <div class="usercomment" style="color: grey;">owen L</div>
-                    <div class="replies"></div>
-                    <div class="comment">
-                        <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                        <div class="usercomment">owen L</div>
+            <div [hidden]="!comments">
+                <div *ngFor="let comment of comments">
+                    <p>Content: {{ comment.content }}</p>
+                    <p>Content: {{ comment.author }}</p>
+                    <p>Content: {{ comment.createdAt }}</p>
+                    <input type="text" class="input-group input-group-lg">
+                    <div>
+                        <input type="text" *ngIf="!isEditEnable" class="input-group input-group-lg">
                     </div>
-                    <div class="comment">
-                        <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                        <div class="usercomment">owen L</div>
-                    </div>
-                    <div class="comment">
-                        <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                        <div class="usercomment">owen L</div>
+                    <div>
+                        <button class="btn btn-sm btn-light text-muted" *ngIf="isEditEnable"
+                            (click)="onEdit()">reply</button>
+                        <button class="btn btn-sm btn-success" *ngIf="!isEditEnable"
+                            (click)="onEdit()">Submit</button>
                     </div>
                 </div>
-            </div>
-            <!-- <input type="text" class="input-group input-group-lg"> -->
-            <div>
-                <input type="text" *ngIf="!isEditEnable" class="input-group input-group-lg">
-            </div>
-            <div>
-                <button class="btn btn-sm btn-light text-muted" *ngIf="isEditEnable" (click)="onEdit()">reply</button>
-                <button class="btn btn-sm btn-success" *ngIf="!isEditEnable" (click)="onEdit()">Submit</button>
             </div>
         </div>
     </div>
