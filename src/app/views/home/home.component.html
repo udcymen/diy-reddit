@@ -28,24 +28,27 @@
                             [ngClass]="{'clicked' : user && post.votes && post.votes[user.uid] == -1 }"
                             (click)="downvote(post.id, post.votes)" />
                     </div>
-                    <div class="mx-4 form-inline">
-                        <h2 class="clickable" (click)='openPost(post.id)'>{{ post.title }}</h2>
-                        <p class="mt-3 mx-5" style="color: grey;">Submited {{ post.createdAt}}</p>
+                    <div class="ml-5 form-inline">
+                        <h1 class="cickable" (click)='openPost(post.id)'>{{ post.title }}</h1>
+                        
                     </div>
                 </div>
-                <div class="mx-5">
-                    <p>author: {{ post.author }}</p>
-                    <div>
-                            <button  class="btn btn-sm btn-light" *ngIf="isEditEnable" (click)="onEdit()"><img src="assets/img/computer-icons-arrow-drop-down-list-arrow-down-icon-free.jpg" width="25"></button>
-                            <button class="btn btn-sm btn-light" *ngIf="!isEditEnable" (click)="onEdit()"><img src="assets/img/close-150192_640.webp" width="25"></button> 
-                        </div>
-                    <div>
+                <div class="pl-2 mx-5">
+                    <div class="form-inline">
+                            <div>
+                                    <button  class="btn btn-sm btn-light" *ngIf="isEditEnable" (click)="onEdit()"><img src="assets/img/computer-icons-arrow-drop-down-list-arrow-down-icon-free.jpg" width="35"></button>
+                                    <button class="btn btn-sm btn-light" *ngIf="!isEditEnable" (click)="onEdit()"><img src="assets/img/close-150192_640.webp" width="35"></button> 
+                                </div>
+                            <p class="mt-3" style="color: grey;">Submited {{ post.createdAt}}</p>
+                            <p class="mt-3 mx-2" style="color: grey;">By {{ post.author }}</p>
+                    </div>
+                    <div class="text-center">
                         <span *ngIf="!isEditEnable">{{ post.content}}</span>
                     </div>
                     
-                    <form class="form-inline">
+                    <form class="form-inline mx-5 pl-0">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-light"><img src="assets/img/25663.svg" width="30"></button>
+                            <button class="btn btn-sm btn-light text-muted" (click)='openPost(post.id)'>Comment</button>
                             <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm btn-light text-muted">share</button>
                         </div>
                     </form>

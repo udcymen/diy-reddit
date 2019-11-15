@@ -52,3 +52,7 @@ body {
   border-bottom-color: orange; 
   border-top-color: orange; 
 }
+h1:hover{
+  color:plum;
+  text-decoration: underline;
+}
