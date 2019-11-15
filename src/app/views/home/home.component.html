@@ -20,13 +20,13 @@
             <div class="clickable shadow-lg container p-3 mb-4 bg-light text-dark mt-4">
                 <div class="form-inline">
                     <div class="mm-voting">
-                        <input class="mm-voting__upvote" type="button" value="upvote"
-                            [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == 1 }"
-                            (click)="upvote(post.id)" />
+                        <input class="upvote" type="button"
+                            [ngClass]="{'clicked' : user && post.votes && post.votes[user.uid] == 1 }"
+                            (click)="upvote(post.id, post.votes)" />
                         <label>{{ post.voteCount }}</label>
-                        <input class="mm-voting__downvote" type="button" value="downvote"
-                            [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == -1 }"
-                            (click)="downvote(post.id)" />
+                        <input class="downvote" type="button"
+                            [ngClass]="{'clicked' : user && post.votes && post.votes[user.uid] == -1 }"
+                            (click)="downvote(post.id, post.votes)" />
                     </div>
                     <div class="mx-4 form-inline">
                         <h2 class="clickable" (click)='openPost(post.id)'>{{ post.title }}</h2>

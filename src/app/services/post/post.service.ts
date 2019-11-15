@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
 import { map, switchMap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { forkJoin, Observable, from } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { firestore } from 'firebase'
 
 
@@ -15,8 +14,7 @@ export class PostService {
   postsCollection: AngularFirestoreCollection<Post>;
 
   constructor(
-    private afs: AngularFirestore,
-    private toast: ToastrService,
+    private afs: AngularFirestore
   ) { 
     this.postsCollection = this.afs.collection('posts');
   }
