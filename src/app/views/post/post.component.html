@@ -25,25 +25,26 @@
                     <p>{{ post.author }}</p>
                     <p>Content: {{ post.content }}</p>
                     <form class="form-inline">
-                            <button class="btn btn-sm btn-light text-muted "
-                                *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))"
-                                (click)="edit()">
-                                edit
-                            </button>
-                            <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm btn-light text-muted">
-                                share
-                            </button>
-                            <button class="btn btn-sm btn-light text-muted"
-                                *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))"
-                                (click)="delete()">
-                                delete
-                            </button>
+                        <button class="btn btn-sm btn-light text-muted "
+                            *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))"
+                            (click)="edit()">
+                            edit
+                        </button>
+                        <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm btn-light text-muted">
+                            share
+                        </button>
+                        <button class="btn btn-sm btn-light text-muted"
+                            *ngIf="(user && (user.roles.admin || user.roles.admin || user.uid == post.author))"
+                            (click)="delete()">
+                            delete
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="container p-3 mb-4 bg-light text-dark ">
             <input type="text" class="input-group input-group-lg">
+            <button class="btn btn-sm btn-light text-muted" (click)="comment(post.id)">Comment</button>
         </div>
     </div>
 </body>

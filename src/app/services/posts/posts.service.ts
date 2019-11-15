@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
-import { User } from '../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,15 +16,12 @@ import { firestore } from 'firebase'
 export class PostsService {
 
   postsCollection: AngularFirestoreCollection<Post>;
-  user: User;
 
   constructor(
     private afs: AngularFirestore,
-    private auth: AuthService,
     private toast: ToastrService, 
   ) { 
     this.postsCollection = this.afs.collection('posts');
-    this.auth.user$.subscribe(user => this.user = user);
   }
 
   get timestamp() {
@@ -54,16 +50,13 @@ export class PostsService {
     this.postsCollection.doc(`${postId}`).set(data, { merge: true });
   }
 
-  addPost(topic: string, title: string, content: string): Observable<any>{
-    if (this.user == null) {
-      this.toast.error("You must login to create a new post");
-    }
+  addPost(topic: string, title: string, content: string, userId: string): Observable<any>{
     return from(
       this.postsCollection.add({
         title: title,
         content: content,
         topic: topic,
-        author: this.user.uid,
+        author: userId,
         createdAt: this.timestamp,
         updatedAt: this.timestamp,
         votes: {}
