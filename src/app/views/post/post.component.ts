@@ -23,7 +23,7 @@ export class PostComponent implements OnInit, OnDestroy {
   postId: string;
   post: Post;
   user: User;
-  comments?: Comment[];
+  comments?: any[];
   subscription: Subscription;
 
   constructor(
@@ -49,12 +49,21 @@ export class PostComponent implements OnInit, OnDestroy {
           })
         )
       })
-    ).subscribe(post => {
-      this.post = post;
-      this.voteCount = sum(values(this.post.votes));
-      if (this.user && post.votes){
-        this.userVote = post.votes[this.user.uid];
-      }
+    )
+    .pipe(
+      map(post => {
+        this.post = post;
+        this.voteCount = sum(values(this.post.votes));
+        if (this.user && post.votes){
+          this.userVote = post.votes[this.user.uid];
+        }
+      }),
+      switchMap(() => {
+        return this.commentService.getRealtedComments(this.postId)
+      })
+    )
+    .subscribe(comments => {
+      this.comments = comments;
     })
   }
 

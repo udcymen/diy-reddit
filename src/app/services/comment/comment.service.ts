@@ -54,6 +54,19 @@ export class CommentService {
     )
   }
 
+  getRealtedComments(relatedId: string): Observable<Comment[]>{
+    return this.afs.collection('comments', ref => ref.where('commentedOn', '==', relatedId))
+    .snapshotChanges()
+    .pipe(map(snaps => {
+      return snaps.map(snap => {
+        return <Comment>{
+          id: snap.payload.doc.id,
+          ...snap.payload.doc.data()
+        }
+      })
+    }))
+  }
+
   editComment(id: string, content: string){
     return this.commentsCollection
     .doc(id)

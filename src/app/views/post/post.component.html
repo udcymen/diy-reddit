@@ -45,16 +45,23 @@
             <button class="btn btn-lg btn-success mt-1" (click)="comment(post.id)">Save</button>
         </div>
         <div class="container p-3 mb-4 bg-light text-dark ">
-            <input type="text" class="input-group input-group-lg">
-            <div>
-                    <input type="text" *ngIf="!isEditEnable" class="input-group input-group-lg">
+            <div [hidden]="!comments">
+                <div *ngFor="let comment of comments">
+                    <p>Content: {{ comment.content }}</p>
+                    <p>Content: {{ comment.author }}</p>
+                    <p>Content: {{ comment.createdAt }}</p>
+                    <input type="text" class="input-group input-group-lg">
+                    <div>
+                        <input type="text" *ngIf="!isEditEnable" class="input-group input-group-lg">
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-light text-muted" *ngIf="isEditEnable"
+                            (click)="onEdit()">reply</button>
+                        <button class="btn btn-sm btn-success" *ngIf="!isEditEnable"
+                            (click)="onEdit()">Submit</button>
+                    </div>
                 </div>
-                <div>
-                    <button class="btn btn-sm btn-light text-muted" *ngIf="isEditEnable"
-                        (click)="onEdit()">reply</button>
-                    <button class="btn btn-sm btn-success" *ngIf="!isEditEnable"
-                        (click)="onEdit()">Submit</button>
-                </div>
+            </div>
         </div>
     </div>
 </body>
