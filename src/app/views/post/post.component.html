@@ -10,11 +10,11 @@
                 <div class="form-inline">
                     <div class="mm-voting">
                         <input class="upvote" type="button"
-                            [ngClass]="{'clicked' : user && userVote }"
+                            [ngClass]="{'clicked' : user && userVote == 1 }"
                             (click)="upvote()" />
                         <label>{{ voteCount }}</label>
                         <input class="downvote" type="button"
-                            [ngClass]="{'clicked' : user && userVote }"
+                            [ngClass]="{'clicked' : user && userVote == -1 }"
                             (click)="downvote()" />
                     </div>
                     <div class="mx-4">
