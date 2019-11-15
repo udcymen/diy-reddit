@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
-import { forkJoin, Observable, from } from 'rxjs';
-import { PostService } from '../../services/post/post.service'
-import { User } from '../../models/user.model';
+import { map, switchMap } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { ToastrService } from 'ngx-toastr';
@@ -18,19 +14,13 @@ import { firestore } from 'firebase'
 export class CommentService {
 
   commentsCollection: AngularFirestoreCollection<Comment>;
-  comment: Comment;
-  user: User;
 
   constructor(
     private toast: ToastrService,
     private afs: AngularFirestore,
     private auth: AuthService,
   ) { 
-    auth.user$.subscribe(user => {
-      this.user = user;
-      this.commentsCollection = this.afs.collection('comments');
-    });
-
+    this.commentsCollection = this.afs.collection('comments');
   }
 
   get timestamp() {

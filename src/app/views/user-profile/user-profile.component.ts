@@ -19,6 +19,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
+  }
+
+  createForm(){
     this.signinForm = this.fb.group({
       'email': ['', [
         Validators.required,

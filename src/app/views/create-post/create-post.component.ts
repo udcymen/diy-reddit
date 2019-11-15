@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PostsService } from '../../services/posts/posts.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,10 +13,11 @@ import { User } from '../../models/user.model';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent implements OnInit {
+export class CreatePostComponent implements OnInit, OnDestroy {
 
   newPostForm: FormGroup;
   user: User;
+  subscription: Subscription;
   topics: string[] = ['Any', 'Game', 'Music', 'Movie', 'Funny']
 
   constructor(
@@ -26,11 +28,15 @@ export class CreatePostComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthService,
   ) { 
-    this.auth.user$.subscribe(user => this.user = user);
+    this.subscription = this.auth.user$.subscribe(user => this.user = user);
   }
 
   ngOnInit() {
     this.createForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   createForm() {

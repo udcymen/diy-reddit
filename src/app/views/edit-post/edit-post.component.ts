@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { PostsService } from '../../services/posts/posts.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { PostService } from '../../services/post/post.service'
-import { map, flatMap, switchMap, mergeMap, merge } from 'rxjs/operators';
+import { switchMap} from 'rxjs/operators';
 import { Post } from '../../models/post.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,8 +14,9 @@ import { Post } from '../../models/post.model';
   templateUrl: './edit-post.component.html',
   styleUrls: ['./edit-post.component.css']
 })
-export class EditPostComponent implements OnInit {
+export class EditPostComponent implements OnInit, OnDestroy {
 
+  subscription: Subscription;
   postEditForm: FormGroup;
   topics: string[] = ['Any', 'Game', 'Music', 'Movie', 'Funny']
   postId: string;
@@ -29,7 +30,11 @@ export class EditPostComponent implements OnInit {
     private auth: AuthService,
     private postService: PostService,
   ) { 
-    this.activatedRoute.params.pipe(
+    
+  }
+
+  ngOnInit() {
+    this.subscription = this.activatedRoute.params.pipe(
       switchMap(params => {
         this.postId = params['id'];
         return this.postService.getPost(params['id']);
@@ -41,10 +46,11 @@ export class EditPostComponent implements OnInit {
         content: post.content
       })
     })
+    this.createForm();
   }
 
-  ngOnInit() {
-    this.createForm();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   createForm() {

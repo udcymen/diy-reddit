@@ -10,11 +10,11 @@
                 <div class="form-inline">
                     <div class="mm-voting">
                         <input class="mm-voting__upvote" type="button" value="upvote"
-                            [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == 1 }"
+                            [ngClass]="{'text-danger' : user && userVote }"
                             (click)="upvote()" />
                         <label>{{ voteCount }}</label>
                         <input class="mm-voting__downvote" type="button" value="downvote"
-                            [ngClass]="{'text-danger' : user && post.votes && post.votes[user.uid] == -1 }"
+                            [ngClass]="{'text-danger' : user && userVote }"
                             (click)="downvote()" />
                     </div>
                     <div class="mx-4">

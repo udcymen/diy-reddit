@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
 import { Post } from '../../models/post.model';
-import { ToastrService } from 'ngx-toastr';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthService } from '../auth/auth.service';
-import { isEmpty, intersection } from 'lodash';
 import { firestore } from 'firebase'
 
 
@@ -18,8 +14,7 @@ export class PostsService {
   postsCollection: AngularFirestoreCollection<Post>;
 
   constructor(
-    private afs: AngularFirestore,
-    private toast: ToastrService, 
+    private afs: AngularFirestore
   ) { 
     this.postsCollection = this.afs.collection('posts');
   }
@@ -39,15 +34,6 @@ export class PostsService {
         }
       })
     }))
-  }
-
-  updateUserVote(postId: string, userId: string, vote: number): void {
-    let data = {
-      votes: {
-        [userId]: vote
-      }
-    }
-    this.postsCollection.doc(`${postId}`).set(data, { merge: true });
   }
 
   addPost(topic: string, title: string, content: string, userId: string): Observable<any>{
