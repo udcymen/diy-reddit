@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { sum, values } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { map, switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 
@@ -41,18 +40,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             .pipe(
               map((posts: Post[]) => {
                 posts.forEach((post: Post) => {
-                  var _post = post;
                   if (post.votes) {
-                    _post['voteCount'] = sum(values(post.votes));
+                    post['voteCount'] = sum(values(post.votes));
                   } else {
-                    _post['voteCount'] = 0;
+                    post['voteCount'] = 0;
                   }
                   if (user && post.votes) {
-                    _post['userVote'] = post.votes[user.uid]
+                    post['userVote'] = post.votes[user.uid]
                   } else {
-                    _post['userVote'] = 0
+                    post['userVote'] = 0
                   }
-                  _post['show'] = false;
+                  post['show'] = false;
                 })
                 return posts;
               })

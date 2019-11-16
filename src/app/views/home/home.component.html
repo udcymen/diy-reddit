@@ -22,15 +22,14 @@
                     <div class="mm-voting">
                         <input class="upvote" type="button"
                             [ngClass]="{'clicked' : user && post.votes && post.votes[user.uid] == 1 }"
-                            (click)="upvote(post.id, post.votes)" />
+                            (click)="upvote(post.id, post.userVote)" />
                         <label>{{ post.voteCount }}</label>
                         <input class="downvote" type="button"
                             [ngClass]="{'clicked' : user && post.votes && post.votes[user.uid] == -1 }"
-                            (click)="downvote(post.id, post.votes)" />
+                            (click)="downvote(post.id, post.userVote)" />
                     </div>
                     <div class="ml-5 form-inline">
                         <h1 class="cickable" (click)='openPost(post.id)'>{{ post.title }}</h1>
-
                     </div>
                 </div>
                 <div class="pl-2 mx-5">

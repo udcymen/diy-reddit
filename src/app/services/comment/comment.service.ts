@@ -65,8 +65,8 @@ export class CommentService {
               ...snap.payload.doc.data()
             }
           })
-        }
-        ))
+        })
+      )
   }
 
   editComment(id: string, content: string) {

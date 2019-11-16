@@ -6,6 +6,7 @@ import { UserProfileComponent } from './views/user-profile/user-profile.componen
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { CreatePostComponent } from './views/create-post/create-post.component';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
+import { CommentComponent } from './views/comment/comment.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'new-post', component: CreatePostComponent },
   { path: 'account', component: UserProfileComponent },
   { path: 'sign-up', component: SignUpComponent },
+
+  { path: 'comment', component: CommentComponent },
 
 ];
 
