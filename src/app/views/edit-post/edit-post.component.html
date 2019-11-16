@@ -20,7 +20,8 @@
             </div>
             <label for="content">Content</label>
             <div class="mx-auto mb-3">
-                <textarea type="content" size="2" rows="5" class="form-control" formControlName="content" required></textarea>
+                <textarea type="content" size="2" rows="5" class="form-control" formControlName="content"
+                    required></textarea>
                 <div *ngIf="postEditForm.get('content').touched">
                     <mat-error *ngIf="postEditForm.get('content').invalid">
                         Please enter content

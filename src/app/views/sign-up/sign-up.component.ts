@@ -14,16 +14,16 @@ export class SignUpComponent implements OnInit {
   signupForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private auth: AuthService,
-    private toast: ToastrService, 
-  ) { 
-    
+    private toast: ToastrService,
+  ) {
+
   }
 
-  passwordValidator(form: FormGroup){
+  passwordValidator(form: FormGroup) {
     const condition = form.get('password').value !== form.get('comfirm_password').value
-    return condition ? { passwordsDoNotMatch: true} : null;
+    return condition ? { passwordsDoNotMatch: true } : null;
   }
 
   ngOnInit() {
@@ -35,26 +35,26 @@ export class SignUpComponent implements OnInit {
       'email': ['', [
         Validators.required,
         Validators.email
-        ]
+      ]
       ],
       'password': ['', [
         Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
         Validators.minLength(6),
         Validators.maxLength(25),
         Validators.required
-        ]
+      ]
       ],
       'comfirm_password': ['', [
         Validators.required
-        ]
+      ]
       ],
       'first_name': ['', [
         Validators.required
-        ]
+      ]
       ],
       'last_name': ['', [
         Validators.required
-        ]
+      ]
       ],
     }, {
       validator: this.passwordValidator

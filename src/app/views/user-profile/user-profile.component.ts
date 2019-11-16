@@ -12,26 +12,26 @@ export class UserProfileComponent implements OnInit {
   signinForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private auth: AuthService
   ) {
-    
+
   }
 
   ngOnInit() {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     this.signinForm = this.fb.group({
       'email': ['', [
         Validators.required,
         Validators.email
-        ]
+      ]
       ],
       'password': ['', [
         Validators.required
-        ]
+      ]
       ]
     });
   }

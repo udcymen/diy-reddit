@@ -1,0 +1,19 @@
+<div [hidden]="!comments">
+    <div *ngFor="let comment of comments">
+        <div class="mr-3 col-md-12 mt-2 ">
+            <div class="user">Content: {{ comment.content }}<span class="time mx-2">{{ comment.createdAt }}</span></div>
+            <div class="usercomment" style="color: grey;">{{ comment.author }}</div>
+            <div class="ml-5">
+
+            </div>
+        </div>
+        <!-- <input type="text" class="input-group input-group-lg"> -->
+        <div>
+            <input type="text" *ngIf="!isEditEnable" class="input-group input-group-lg">
+        </div>
+        <div>
+            <button class="btn btn-sm btn-light text-muted" *ngIf="isEditEnable" (click)="onEdit()">reply</button>
+            <button class="btn btn-sm btn-success" *ngIf="!isEditEnable" (click)="onEdit()">Submit</button>
+        </div>
+    </div>
+</div>

@@ -30,16 +30,20 @@
                     </div>
                     <div class="ml-5 form-inline">
                         <h1 class="cickable" (click)='openPost(post.id)'>{{ post.title }}</h1>
-                        
+
                     </div>
                 </div>
                 <div class="pl-2 mx-5">
                     <div class="form-inline">
                         <div>
-                            <button  class="btn btn-sm btn-light" *ngIf="!post.show" (click)="onShow(post.id)"><img src="assets/img/computer-icons-arrow-drop-down-list-arrow-down-icon-free.jpg" width="35"></button>
-                            <button class="btn btn-sm btn-light" *ngIf="post.show" (click)="onShow(post.id)"><img src="assets/img/close-150192_640.webp" width="35"></button> 
+                            <button class="btn btn-sm btn-light" *ngIf="!post.show" (click)="onShow(post.id)"><img
+                                    src="assets/img/computer-icons-arrow-drop-down-list-arrow-down-icon-free.jpg"
+                                    width="35"></button>
+                            <button class="btn btn-sm btn-light" *ngIf="post.show" (click)="onShow(post.id)"><img
+                                    src="assets/img/close-150192_640.webp" width="35"></button>
                         </div>
-                        <p class="mt-3" style="color: grey;">Submited {{ post.createdAt}}</p>
+                        <p class="mt-3" style="color: grey;">Submited
+                            {{ post.createdAt.toDate() | date:'yyyy/MM/dd h:mm:ss a'}}</p>
                         <p class="mt-3 mx-2" style="color: grey;">By {{ post.author }}</p>
                     </div>
                     <div class="text-center">
@@ -48,7 +52,8 @@
                     <form class="form-inline mx-5 pl-0">
                         <div class="form-group">
                             <button class="btn btn-sm btn-light text-muted" (click)='openPost(post.id)'>Comment</button>
-                            <button ceiboShare [facebook]="{u: repoUrl}" class="btn btn-sm btn-light text-muted">share</button>
+                            <button ceiboShare [facebook]="{u: repoUrl}"
+                                class="btn btn-sm btn-light text-muted">share</button>
                         </div>
                     </form>
                 </div>

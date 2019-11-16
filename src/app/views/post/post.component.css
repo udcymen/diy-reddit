@@ -1,67 +1,62 @@
-
 body {
   background-image: url("../../../assets/img/download.jpeg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
+
 .mm-voting {
   text-align: center;
-  width:20px;
+  width: 20px;
 }
 
-.mm-voting input,
-.mm-voting label {
-  display:block;
+.mm-voting input, .mm-voting label {
+  display: block;
 }
 
 .mm-voting .upvote {
-  border-left: 10px solid white;  
+  border-left: 10px solid white;
   border-right: 10px solid white;
   border-bottom: 20px solid black;
-  border-top:none;
-  background:blue;
-  cursor:pointer;
-  height:0;
+  border-top: none;
+  background: blue;
+  cursor: pointer;
+  height: 0;
   padding: 0;
-  outline:none;
-  text-indent:-99999px;
+  outline: none;
+  text-indent: -99999px;
 }
 
-.mm-voting .downvote { 
+.mm-voting .downvote {
   border-bottom: none;
-  border-top: 20px solid black; 
-  border-left: 10px solid white;  
+  border-top: 20px solid black;
+  border-left: 10px solid white;
   border-right: 10px solid white;
   border-bottom: none;
-  border-top: 20px solid black; 
-  background:blue;
-  cursor:pointer;
-  height:0;
+  border-top: 20px solid black;
+  background: blue;
+  cursor: pointer;
+  height: 0;
   padding: 0;
-  outline:none;
-  text-indent:-99999px;
+  outline: none;
+  text-indent: -99999px;
 }
 
 .mm-voting .clicked {
-  border-bottom-color: orange; 
-  border-top-color: orange; 
+  border-bottom-color: orange;
+  border-top-color: orange;
 }
 
 .mm-voting input:active {
-  border-bottom-color: orange; 
-  border-top-color: orange; 
+  border-bottom-color: orange;
+  border-top-color: orange;
 }
+
 textarea {
   height: 100px;
 }
-.user{
+
+.user {
   font-weight: bold;
   color: black;
-}
-.replies .comment{
-  margin-top: 20px;
-}
-.replies{
-  margin-left: 20px;
 }

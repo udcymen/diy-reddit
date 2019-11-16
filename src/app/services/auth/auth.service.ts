@@ -20,25 +20,25 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private toast: ToastrService, 
+    private toast: ToastrService,
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
-        if (user){
+        if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else{
+        } else {
           return of(null);
         }
       })
     );
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     return this.afAuth.authState.pipe(
       switchMap(user => {
-        if (user){
+        if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else{
+        } else {
           return of(null);
         }
       })
@@ -48,11 +48,11 @@ export class AuthService {
   // ========================================
   // Update User Data
   // ========================================
-  private updateUserData(user){
+  private updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data = { 
+    const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -76,7 +76,7 @@ export class AuthService {
           return this.updateUserData(credential.user);
         })
       })
-      .catch(error => 
+      .catch(error =>
         this.toast.error(error.message, "Error While Signing in"),
       );
   }
@@ -89,7 +89,7 @@ export class AuthService {
       .then(credential => {
         return this.updateUserData(credential.user);
       })
-      .catch(error => 
+      .catch(error =>
         this.toast.error(error.message, "Error While Signing in"),
       );
   }
@@ -97,13 +97,13 @@ export class AuthService {
   // ========================================
   // Google Login Route
   // ========================================
-  async googleSignin(){
+  async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider)
       .then(credential => {
         return this.updateUserData(credential.user);
       })
-      .catch(error => 
+      .catch(error =>
         this.toast.error(error.message, "Error While Signing in"),
       );
   }
@@ -111,7 +111,7 @@ export class AuthService {
   // ========================================
   // Gerneal Sign out
   // ========================================
-  async signOut(){
+  async signOut() {
     await this.afAuth.auth.signOut();
     return this.router.navigate(['/account']);
   }

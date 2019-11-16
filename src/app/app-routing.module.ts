@@ -8,14 +8,14 @@ import { CreatePostComponent } from './views/create-post/create-post.component';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'home', pathMatch:'full'},
-  {path:'home', component: HomeComponent},
-  {path:'post/:id', component: PostComponent},
-  {path:'post/:id/edit', component: EditPostComponent},
-  {path:'new-post', component: CreatePostComponent},
-  {path:'account', component: UserProfileComponent},
-  {path:'sign-up', component: SignUpComponent},
-  
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'post/:id', component: PostComponent },
+  { path: 'post/:id/edit', component: EditPostComponent },
+  { path: 'new-post', component: CreatePostComponent },
+  { path: 'account', component: UserProfileComponent },
+  { path: 'sign-up', component: SignUpComponent },
+
 ];
 
 @NgModule({

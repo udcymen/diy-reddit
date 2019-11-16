@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth/auth.service';
 import { PostService } from '../../services/post/post.service'
-import { switchMap} from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { Post } from '../../models/post.model';
 import { Subscription } from 'rxjs';
 
@@ -25,12 +25,12 @@ export class EditPostComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private toast: ToastrService,
     private auth: AuthService,
     private postService: PostService,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit() {
@@ -57,15 +57,15 @@ export class EditPostComponent implements OnInit, OnDestroy {
     this.postEditForm = this.fb.group({
       'topic': ['', [
         Validators.required
-        ]
+      ]
       ],
       'title': ['', [
         Validators.required
-        ]
+      ]
       ],
       'content': ['', [
         Validators.required
-        ]
+      ]
       ]
     });
   }
@@ -78,14 +78,14 @@ export class EditPostComponent implements OnInit, OnDestroy {
   get title() { return this.postEditForm.get('title').value }
   get content() { return this.postEditForm.get('content').value }
 
-  cancle(){
-    this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+  cancle() {
+    this.router.navigate(['../'], { relativeTo: this.activatedRoute });
   }
 
-  submit(){
+  submit() {
     this.postService.editPost(this.postId, this.topic, this.title, this.content).subscribe(postRef => {
       this.toast.success("Post successfully updated with id: " + this.postId);
-      this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
     }, error => this.toast.error(error.message));
   }
 

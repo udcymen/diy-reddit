@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { PostsService } from '../../services/posts/posts.service';
+import { PostService } from '../../services/post/post.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { Subscription } from 'rxjs';
@@ -23,11 +23,11 @@ export class CreatePostComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder, 
-    private postsService: PostsService,
+    private fb: FormBuilder,
+    private postService: PostService,
     private toast: ToastrService,
     private auth: AuthService,
-  ) { 
+  ) {
     this.subscription = this.auth.user$.subscribe(user => this.user = user);
   }
 
@@ -43,15 +43,15 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     this.newPostForm = this.fb.group({
       'topic': ['', [
         Validators.required
-        ]
+      ]
       ],
       'title': ['', [
         Validators.required
-        ]
+      ]
       ],
       'content': ['', [
         Validators.required
-        ]
+      ]
       ]
     });
   }
@@ -65,13 +65,13 @@ export class CreatePostComponent implements OnInit, OnDestroy {
   get content() { return this.newPostForm.get('content').value }
 
 
-  post(){
+  post() {
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
-    } else{
-      this.postsService.addPost(this.topic, this.title, this.content, this.user.uid).subscribe(postRef => {
+    } else {
+      this.postService.addPost(this.topic, this.title, this.content, this.user.uid).subscribe(postRef => {
         this.toast.success("Post successfully created with id: " + postRef.id);
-        this.router.navigate(['../'], { relativeTo: this.activatedRoute});
+        this.router.navigate(['../'], { relativeTo: this.activatedRoute });
       });
     }
   }

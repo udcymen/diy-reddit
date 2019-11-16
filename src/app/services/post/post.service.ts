@@ -15,7 +15,7 @@ export class PostService {
 
   constructor(
     private afs: AngularFirestore
-  ) { 
+  ) {
     this.postsCollection = this.afs.collection('posts');
   }
 
@@ -23,18 +23,47 @@ export class PostService {
     return firestore.FieldValue.serverTimestamp();
   }
 
-  getPost(postId: string): Observable<Post>{
+  getAllPost(): Observable<Post[]> {
     return this.postsCollection
-    .doc(postId)
-    .snapshotChanges()
-    .pipe(
-      map(a => {    
-        return <Post>{
-          id: a.payload.id,
-          ...a.payload.data() as Post
+      .snapshotChanges()
+      .pipe(
+        map(snaps => {
+          return snaps.map(snap => {
+            return <Post>{
+              id: snap.payload.doc.id,
+              ...snap.payload.doc.data()
+            }
+          })
         }
+        ))
+  }
+
+  addPost(topic: string, title: string, content: string, userId: string): Observable<any> {
+    return from(
+      this.postsCollection.add({
+        title: title,
+        content: content,
+        topic: topic,
+        author: userId,
+        createdAt: this.timestamp,
+        updatedAt: this.timestamp,
+        votes: {}
       })
     )
+  }
+
+  getPost(postId: string): Observable<Post> {
+    return this.postsCollection
+      .doc(postId)
+      .snapshotChanges()
+      .pipe(
+        map(a => {
+          return <Post>{
+            id: a.payload.id,
+            ...a.payload.data() as Post
+          }
+        })
+      )
   }
 
   updateUserVote(postId: string, userId: string, vote: number): void {
@@ -46,44 +75,44 @@ export class PostService {
     this.postsCollection.doc(`${postId}`).set(data, { merge: true });
   }
 
-  editPost(id: string, topic: string, title: string, content: string){
+  editPost(id: string, topic: string, title: string, content: string) {
     return this.postsCollection
-    .doc(id)
-    .get()
-    .pipe(
-      switchMap(postDocument => {
-        if (!postDocument || !postDocument.data()){
-          throw new Error("Post not Found");
-        } else{
-          return from(
-            this.postsCollection.doc(`${id}`)
-            .set({
-              topic: topic,
-              title: title,
-              content: content,
-              updatedAt: this.timestamp
-            }, { merge: true })
-          )
-        }
-      })
-    )
+      .doc(id)
+      .get()
+      .pipe(
+        switchMap(postDocument => {
+          if (!postDocument || !postDocument.data()) {
+            throw new Error("Post not Found");
+          } else {
+            return from(
+              this.postsCollection.doc(`${id}`)
+                .set({
+                  topic: topic,
+                  title: title,
+                  content: content,
+                  updatedAt: this.timestamp
+                }, { merge: true })
+            )
+          }
+        })
+      )
   }
 
-  deletePost(id: string): Observable<void>{
+  deletePost(id: string): Observable<void> {
     return this.postsCollection
-    .doc(id)
-    .get()
-    .pipe(
-      switchMap(postDocument => {
-        if (!postDocument || !postDocument.data()){
-          throw new Error("Post not Found");
-        } else{
-          return from(
-            this.postsCollection.doc(`${id}`)
-            .delete()
-          )
-        }
-      })
-    )
+      .doc(id)
+      .get()
+      .pipe(
+        switchMap(postDocument => {
+          if (!postDocument || !postDocument.data()) {
+            throw new Error("Post not Found");
+          } else {
+            return from(
+              this.postsCollection.doc(`${id}`)
+                .delete()
+            )
+          }
+        })
+      )
   }
 }

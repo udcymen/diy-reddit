@@ -9,11 +9,11 @@
             <div class="container p-3 mb-4 bg-light text-dark">
                 <div class="form-inline">
                     <div class="mm-voting">
-                        <input class="upvote" type="button" [ngClass]="{'clicked' : user && userVote == 1 }"
-                            (click)="upvote()" />
-                        <label>{{ voteCount }}</label>
-                        <input class="downvote" type="button" [ngClass]="{'clicked' : user && userVote == -1 }"
-                            (click)="downvote()" />
+                        <input class="upvote" type="button" [ngClass]="{'clicked' : user && post.userVote == 1 }"
+                            (click)="upvote(post.id, post.userVote)" />
+                        <label>{{ post.voteCount }}</label>
+                        <input class="downvote" type="button" [ngClass]="{'clicked' : user && post.userVote == -1 }"
+                            (click)="downvote(post.id, post.userVote)" />
                     </div>
                     <div class="mx-4">
                         <h2>{{ post.title }}</h2>
@@ -40,30 +40,19 @@
             </div>
         </div>
         <div class="container p-3 mb-4 bg-light text-dark ">
-            <textarea type="text" width="20" class="form-control" #postComment placeholder="What do you think?"></textarea>
+            <textarea type="text" width="20" class="form-control" #postComment
+                placeholder="What do you think?"></textarea>
             <button class="btn btn-lg btn-success mt-1" (click)="comment(post.id, postComment.value)">Save</button>
         </div>
-
         <div class="container p-3 mb-4 bg-light text-dark ">
             <div [hidden]="!comments">
                 <div *ngFor="let comment of comments">
-                    <div class="mr-3">
-                        <div class="col-md-12">
-                            <div class="comment">
-                                <div class="user">Content: {{ comment.content }}<span
-                                        class="time mx-2">{{ comment.createdAt }}</span></div>
-                                <div class="usercomment" style="color: grey;">{{ comment.author }}</div>
-                                <div class="replies">
-                                    <div class="comment">
-                                        <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                                        <div class="usercomment">owen L</div>
-                                    </div>
-                                    <div class="comment">
-                                        <div class="user">anything<span class="time mx-2">2019.11.15</span></div>
-                                        <div class="usercomment">owen L</div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="mr-3 col-md-12 mt-2 ">
+                        <div class="user">Content: {{ comment.content }}<span
+                                class="time mx-2">{{ comment.createdAt }}</span></div>
+                        <div class="usercomment" style="color: grey;">{{ comment.author }}</div>
+                        <div class="ml-5">
+
                         </div>
                     </div>
                     <!-- <input type="text" class="input-group input-group-lg"> -->
