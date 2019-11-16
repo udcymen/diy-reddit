@@ -52,9 +52,15 @@ export class PostComponent implements OnInit, OnDestroy {
       )
       .pipe(
         map(post => {
-          post['voteCount'] = sum(values(this.post.votes));
+          if (post.votes){
+            post['voteCount'] = sum(values(post.votes));
+          } else {
+            post['voteCount'] = 0;
+          }
           if (this.user && post.votes) {
             post['userVote'] = post.votes[this.user.uid];
+          } else {
+            post['userVote'] = 0;
           }
           this.post = post;
         }),
