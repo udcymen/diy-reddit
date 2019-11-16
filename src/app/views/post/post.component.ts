@@ -100,7 +100,7 @@ export class PostComponent implements OnInit, OnDestroy {
     }
   }
 
-  comment(itemId: string, content: string) {
+  commentPost(itemId: string, content: string) {
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
     } else {
@@ -109,11 +109,5 @@ export class PostComponent implements OnInit, OnDestroy {
         this.toast.success("Comment successfully created with id: " + commentRef.id);
       });
     }
-  }
-
-  isEditEnable: boolean = true; // to show and hide the edit button
-
-  onEdit() {
-    this.isEditEnable = !this.isEditEnable;
   }
 }
