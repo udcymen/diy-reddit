@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { CommentService } from '../../services/comment/comment.service'
 import { Comment } from '../../models/comment.model';
 import { map, switchMap } from 'rxjs/operators';
@@ -15,6 +15,8 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class CommentComponent implements OnInit, OnDestroy {
 
+  @Input() itemId: string;
+  
   comments?: any[];
   user: User;
   subscription: Subscription;
@@ -31,7 +33,7 @@ export class CommentComponent implements OnInit, OnDestroy {
       .pipe(
         map(user => this.user = user),
         switchMap(() => {
-          return this.commentService.getRelatedComments('BHvbW8AdUa79QqklpH5B')
+          return this.commentService.getRelatedComments(this.itemId)
             .pipe(
               map((comments: Comment[]) => {
                 comments.forEach((comment: Comment) => {

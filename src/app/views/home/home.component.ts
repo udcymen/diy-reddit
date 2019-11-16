@@ -37,26 +37,27 @@ export class HomeComponent implements OnInit, OnDestroy {
         map(user => this.user = user),
         switchMap(user => {
           return this.postService.getAllPost()
-            .pipe(
-              map((posts: Post[]) => {
-                posts.forEach((post: Post) => {
-                  if (post.votes) {
-                    post['voteCount'] = sum(values(post.votes));
-                  } else {
-                    post['voteCount'] = 0;
-                  }
-                  if (user && post.votes) {
-                    post['userVote'] = post.votes[user.uid]
-                  } else {
-                    post['userVote'] = 0
-                  }
-                  post['show'] = false;
-                })
-                return posts;
-              })
-            )
         })
-      ).subscribe(posts => {
+      )
+      .pipe(
+        map((posts: Post[]) => {
+          posts.forEach((post: Post) => {
+            if (post.votes) {
+              post['voteCount'] = sum(values(post.votes));
+              if (this.user) {
+                post['userVote'] = post.votes[this.user.uid]
+              } else {
+                post['userVote'] = 0
+              }
+            } else {
+              post['voteCount'] = 0;
+            }
+            post['show'] = false;
+          })
+          return posts;
+        })
+      )
+      .subscribe(posts => {
         this.posts = posts
       })
   }
@@ -85,13 +86,5 @@ export class HomeComponent implements OnInit, OnDestroy {
       let vote = userVote == -1 ? 0 : -1
       this.postService.updateUserVote(postId, this.user.uid, vote)
     }
-  }
-
-  onShow(postId: string) {
-    this.posts.forEach(post => {
-      if (post.id === postId) {
-        post.show = !post.show
-      }
-    })
   }
 }

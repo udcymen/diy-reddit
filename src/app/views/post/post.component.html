@@ -46,6 +46,7 @@
         </div>
         <div class="container p-3 mb-4 bg-light text-dark ">
             <div [hidden]="!comments">
+                <app-comment [itemId]="post.id"></app-comment>
             </div>
         </div>
     </div>

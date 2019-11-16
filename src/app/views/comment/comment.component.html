@@ -9,7 +9,7 @@
         </div>
         <div *ngIf="comment.reply">
             <input type="text" class="input-group input-group-lg" placeholder="Type your comment here" [(ngModel)]="comment.replyContent">
-            <button class="btn btn-sm btn-success" (click)="comment.replyContent = ''">Cancel</button>
+            <button class="btn btn-sm btn-success" (click)="comment.reply = false">Cancel</button>
             <button class="btn btn-sm btn-success" (click)="commentOn(comment.id)">Submit</button>
         </div>
     </div>
