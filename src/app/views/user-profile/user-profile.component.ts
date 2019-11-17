@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,8 +19,25 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+  user: User;
+
   ngOnInit() {
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    })
     this.createForm();
+  }
+
+  onSelectFile($event){
+
+  }
+
+  googleSignIn(){
+    this.auth.googleSignin();
+  }
+
+  signOut(){
+    this.auth.signOut();
   }
 
   createForm() {

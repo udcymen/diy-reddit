@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/user.model'
 
 
 @Component({
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignUpComponent implements OnInit {
 
+  user: User;
   signupForm: FormGroup;
 
   constructor(
@@ -18,7 +20,9 @@ export class SignUpComponent implements OnInit {
     private auth: AuthService,
     private toast: ToastrService,
   ) {
-
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    })
   }
 
   passwordValidator(form: FormGroup) {
@@ -65,7 +69,7 @@ export class SignUpComponent implements OnInit {
   get password() { return this.signupForm.get('password').value }
   get name() { return this.signupForm.get('first_name').value + ' ' + this.signupForm.get('last_name').value }
 
-  signup() {
+  submit() {
     this.toast.success("Successfully sign up");
     return this.auth.emailSignUp(this.email, this.password, this.name)
   }

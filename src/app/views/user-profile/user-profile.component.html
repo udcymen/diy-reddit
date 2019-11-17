@@ -1,7 +1,7 @@
-<div *ngIf="auth.user$ | async as user; else login" class="text-center">
+<div *ngIf="user; else login" class="text-center">
     <h3 style="color: aliceblue;">Hello, {{ user.displayName }}</h3>
     <label class="hoverable" for="fileInput">
-        <img id="user" [src]="url ? url : user.photoURL">
+        <img id="user" [src]="user.photoURL">
         <div class="hover-text">Update</div>
         <div class="background"></div>
     </label>
@@ -10,7 +10,7 @@
     <p class="mt-3" style="color: aliceblue;">Email: {{ user.email }}</p>
     <p style="color: aliceblue;">UID: {{ user.uid }}</p>
     <div>
-        <button class="btn btn-light" (click)="auth.signOut()">Sign Out</button>
+        <button class="btn btn-light" (click)="signOut()">Sign Out</button>
         <button class="btn btn-secondary mx-3">Edit detail</button>
     </div>
     <div class="modal-header">
@@ -64,7 +64,7 @@
 
     </div>
     <div class="text-center">
-        <button type="submit" class="btn btn-light mx-3 btn-lg mt-3 d-inline-flex" (click)="auth.googleSignin()">
+        <button type="submit" class="btn btn-light mx-3 btn-lg mt-3 d-inline-flex" (click)="googleSignIn()">
             <img src="assets/img/new-google-favicon-512.png" alt="Log in with google" class="mr-3" width=40px>
             <p class="center">Log in with google</p>
         </button>

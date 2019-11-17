@@ -32,6 +32,9 @@ export class CreatePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    })
     this.createForm();
   }
 

@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthService {
 
-  user$: Observable<User>;
+  public user$: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,

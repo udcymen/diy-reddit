@@ -14,7 +14,7 @@
       <li class="nav-item">
         <a routerLinkActive='active' class="nav-link" routerLink='account'>Account</a>
       </li>
-      <li class="nav-item" [hidden]="auth.user$ | async">
+      <li class="nav-item" [hidden]="user">
         <a routerLinkActive='active' class="nav-link" routerLink='sign-up'>Sign up</a>
       </li>
     </ul>

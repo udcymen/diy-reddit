@@ -1,5 +1,5 @@
-<div *ngIf="auth.user$ | async as user; else notSignIn">
-    <form [formGroup]="newPostForm" [hidden]="success" (ngSubmit)="post()">
+<div *ngIf="user; else notSignIn">
+    <form [formGroup]="newPostForm" (ngSubmit)="post()">
         <div class="text-center">
             <img src="assets/img/football-snoo-1567804843-0174207019155.png" width=60px alt="">
         </div>
