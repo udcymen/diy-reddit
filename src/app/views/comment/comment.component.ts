@@ -40,7 +40,7 @@ export class CommentComponent implements OnInit, OnDestroy {
                 comments.forEach((comment: Comment) => {
                   comment['reply'] = false;
                   comment['replyContent'] = '';
-                  if (comment.votes) {
+                  if (values(comment.votes).length != 0) {
                     comment['voteCount'] = sum(values(comment.votes));
                     if (this.user) {
                       comment['userVote'] = comment.votes[this.user.uid];
@@ -63,6 +63,24 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  upvote(commentId: string, userVote: number) {
+    if (this.user == null) {
+      this.toast.error("You must login to upvote post");
+    } else {
+      let vote = userVote == 1 ? 0 : 1
+      this.commentService.updateUserVote(commentId, this.user.uid, vote)
+    }
+  }
+
+  downvote(commentId: string, userVote: number) {
+    if (this.user == null) {
+      this.toast.error("You must login to downvote post");
+    } else {
+      let vote = userVote == -1 ? 0 : -1
+      this.commentService.updateUserVote(commentId, this.user.uid, vote)
+    }
   }
 
   commentOn(itemId: string) {

@@ -40,6 +40,15 @@ export class CommentService {
     )
   }
 
+  updateUserVote(commentId: string, userId: string, vote: number): void {
+    let data = {
+      votes: {
+        [userId]: vote
+      }
+    }
+    this.commentsCollection.doc(`${commentId}`).set(data, { merge: true });
+  }
+
   getComment(id: string): Observable<Comment> {
     return this.commentsCollection
       .doc(id)
