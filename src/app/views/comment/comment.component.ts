@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class CommentComponent implements OnInit, OnDestroy {
 
   @Input() itemId: string;
-  
+
   comments?: any[];
   user: User;
   subscription: Subscription;
@@ -43,8 +43,7 @@ export class CommentComponent implements OnInit, OnDestroy {
                 return comments;
               })
             )
-        }
-        )
+        })
       )
       .subscribe(comments => {
         this.comments = comments;
@@ -53,14 +52,6 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  reply(itemId: string) {
-    this.comments.forEach(comment => {
-      if (comment.id == itemId) {
-        comment.reply = 'true';
-      }
-    })
   }
 
   commentOn(itemId: string) {

@@ -18,8 +18,6 @@ import { User } from '../../models/user.model';
 export class PostComponent implements OnInit, OnDestroy {
 
   voteCount: number;
-  userVote: number = 0;
-  postComment = '';
   postId: string;
   post: any;
   user: User;
@@ -62,6 +60,7 @@ export class PostComponent implements OnInit, OnDestroy {
           } else {
             post['voteCount'] = 0;
           }
+          post['comment'] = '';
           this.post = post;
         }),
         switchMap(() => {
@@ -88,30 +87,30 @@ export class PostComponent implements OnInit, OnDestroy {
     }, error => this.toast.error(error.message));
   }
 
-  upvote(postId: string, userVote: number) {
+  upvote(userVote: number) {
     if (this.user == null) {
       this.toast.error("You must login to upvote post");
     } else {
-      let vote = this.userVote == 1 ? 0 : 1
+      let vote = userVote == 1 ? 0 : 1
       this.postService.updateUserVote(this.postId, this.user.uid, vote)
     }
   }
 
-  downvote(postId: string, userVote: number) {
+  downvote(userVote: number) {
     if (this.user == null) {
       this.toast.error("You must login to downvote post");
     } else {
-      let vote = this.userVote == -1 ? 0 : -1
+      let vote = userVote == -1 ? 0 : -1
       this.postService.updateUserVote(this.postId, this.user.uid, vote)
     }
   }
 
-  commentPost(itemId: string, content: string) {
+  commentPost() {
     if (this.user == null) {
       this.toast.error("You must login to create a new post");
     } else {
-      this.commentService.addComment(content, itemId, this.user.uid).subscribe(commentRef => {
-        this.postComment = '';
+      this.commentService.addComment(this.post.comment, this.post.id, this.user.uid).subscribe(commentRef => {
+        this.post.comment = '';
         this.toast.success("Comment successfully created with id: " + commentRef.id);
       });
     }

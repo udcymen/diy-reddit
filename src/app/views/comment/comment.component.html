@@ -1,16 +1,19 @@
-<div [hidden]="!comments">
+<div *ngIf="comments">
     <div *ngFor="let comment of comments">
         <div class="mr-3 col-md-12 mt-2 ">
             <div class="user">Content: {{ comment.content }}<span class="time mx-2">{{ comment.createdAt.toDate() | date:'yyyy/MM/dd h:mm:ss a' }}</span></div>
             <div class="usercomment" style="color: grey;">{{ comment.author }}</div>
             <div *ngIf="!comment.reply" class="ml-5">
-                <button class="btn btn-sm btn-success" (click)="reply(comment.id)">Reply</button>
+                <button class="btn btn-sm btn-success" (click)="comment.reply = true">Reply</button>
+            </div>
+            <div *ngIf="comment.reply">
+                <input type="text" class="input-group input-group-lg" placeholder="Type your comment here" [(ngModel)]="comment.replyContent">
+                <button class="btn btn-sm btn-success" (click)="comment.reply = false">Cancel</button>
+                <button class="btn btn-sm btn-success" (click)="commentOn(comment.id)">Submit</button>
             </div>
         </div>
-        <div *ngIf="comment.reply">
-            <input type="text" class="input-group input-group-lg" placeholder="Type your comment here" [(ngModel)]="comment.replyContent">
-            <button class="btn btn-sm btn-success" (click)="comment.reply = false">Cancel</button>
-            <button class="btn btn-sm btn-success" (click)="commentOn(comment.id)">Submit</button>
+        <div class="ml-5 col-md-12 mt-2 ">
+            <app-comment [itemId]="comment.id"></app-comment>
         </div>
     </div>
 </div>
