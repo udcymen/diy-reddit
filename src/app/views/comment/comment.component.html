@@ -1,5 +1,12 @@
 <div *ngIf="comments">
     <div *ngFor="let comment of comments">
+        <div class="mm-voting">
+            <input class="upvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == 1 }"
+                (click)="upvote(comment.userVote)" />
+            <label>{{ comment.voteCount }}</label>
+            <input class="downvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == -1 }"
+                (click)="downvote(comment.userVote)" />
+        </div>
         <div class="mr-3 col-md-12 mt-2 ">
             <div class="user">Content: {{ comment.content }}<span class="time mx-2">{{ comment.createdAt.toDate() | date:'yyyy/MM/dd h:mm:ss a' }}</span></div>
             <div class="usercomment" style="color: grey;">{{ comment.author }}</div>

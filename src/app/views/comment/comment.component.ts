@@ -6,6 +6,7 @@ import { User } from '../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
+import { sum, values } from 'lodash';
 
 
 @Component({
@@ -39,6 +40,16 @@ export class CommentComponent implements OnInit, OnDestroy {
                 comments.forEach((comment: Comment) => {
                   comment['reply'] = false;
                   comment['replyContent'] = '';
+                  if (comment.votes) {
+                    comment['voteCount'] = sum(values(comment.votes));
+                    if (this.user) {
+                      comment['userVote'] = comment.votes[this.user.uid];
+                    } else {
+                      comment['userVote'] = 0;
+                    }
+                  } else {
+                    comment['voteCount'] = 0;
+                  }
                 })
                 return comments;
               })
