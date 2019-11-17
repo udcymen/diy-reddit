@@ -1,25 +1,33 @@
 <div *ngIf="comments">
     <div *ngFor="let comment of comments">
-        <div class="mm-voting">
-            <input class="upvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == 1 }"
-                (click)="upvote(comment.id, comment.userVote)" />
-            <label>{{ comment.voteCount }}</label>
-            <input class="downvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == -1 }"
-                (click)="downvote(comment.id, comment.userVote)" />
-        </div>
-        <div class="mr-3 col-md-12 mt-2 ">
-            <div class="user">Content: {{ comment.content }}<span class="time mx-2">{{ comment.createdAt.toDate() | date:'yyyy/MM/dd h:mm:ss a' }}</span></div>
-            <div class="usercomment" style="color: grey;">{{ comment.author }}</div>
-            <div *ngIf="!comment.reply" class="ml-5">
-                <button class="btn btn-sm btn-success" (click)="comment.reply = true">Reply</button>
+        <div class="form-inline">
+            <div class="mm-voting">
+                <input class="upvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == 1 }"
+                    (click)="upvote(comment.id, comment.userVote)" />
+                <label>{{ comment.voteCount }}</label>
+                <input class="downvote" type="button" [ngClass]="{'clicked' : user && comment.userVote == -1 }"
+                    (click)="downvote(comment.id, comment.userVote)" />
             </div>
-            <div *ngIf="comment.reply">
-                <input type="text" class="input-group input-group-lg" placeholder="Type your comment here" [(ngModel)]="comment.replyContent">
-                <button class="btn btn-sm btn-success" (click)="comment.reply = false">Cancel</button>
+            <div class="mx-3 mt-4">
+                <div class="usercomment pl-2" style="color: grey; font-size: small;">Author: {{ comment.author }}<span
+                    class="time mx-2">{{ comment.createdAt.toDate() | date:'yyyy/MM/dd h:mm:ss a' }}</span></div>
+                <div class="user pl-2" style="font-size: x-large;">{{ comment.content }}</div>
+                <div *ngIf="!comment.reply">
+                    <button class="btn btn-sm btn-light text-muted" (click)="comment.reply = true">Reply</button>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="comment.reply" class="mx-4 pl-2">
+            <textarea rows="4" cols="50" placeholder="Type your comment here"
+                [(ngModel)]="comment.replyContent"></textarea>
+            <div>
                 <button class="btn btn-sm btn-success" (click)="commentOn(comment.id)">Submit</button>
+                <button class="btn btn-sm btn-secondary mx-1" (click)="comment.reply = false">Cancel</button>
             </div>
+
         </div>
-        
+
         <div class="ml-5 col-md-12 mt-2 ">
             <app-comment [itemId]="comment.id"></app-comment>
         </div>
