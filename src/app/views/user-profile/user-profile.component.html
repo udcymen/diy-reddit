@@ -1,5 +1,5 @@
 <div *ngIf="auth.user$ | async as user; else login" class="text-center">
-    <h3>Hello, {{ user.displayName }}</h3>
+    <h3 style="color: aliceblue;">Hello, {{ user.displayName }}</h3>
     <label class="hoverable" for="fileInput">
         <img id="user" [src]="url ? url : user.photoURL">
         <div class="hover-text">Update</div>
@@ -7,14 +7,14 @@
     </label>
     <input id="fileInput" type='file' (change)="onSelectFile($event)">
 
-    <p class="mt-3">Email: {{ user.email }}</p>
-    <p>UID: {{ user.uid }}</p>
+    <p class="mt-3" style="color: aliceblue;">Email: {{ user.email }}</p>
+    <p style="color: aliceblue;">UID: {{ user.uid }}</p>
     <div>
         <button class="btn btn-light" (click)="auth.signOut()">Sign Out</button>
         <button class="btn btn-secondary mx-3">Edit detail</button>
     </div>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Your post</h5>
+        <h5 class="modal-title" style="color: aliceblue;">Your post</h5>
     </div>
 </div>
 
@@ -24,12 +24,12 @@
         <img src="assets/img/oIZJpCMP_400x400.jpg" width=60px alt="">
     </div>
     <div class="text-center">
-        <h4 class="modal-title">Sign in</h4>
+        <h4 class="modal-title" style="color: aliceblue;">Sign in</h4>
     </div>
     <form [formGroup]="signinForm" (ngSubmit)="signin()">
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
-                <label for="email">Email</label>
+                <label for="email" style="color: aliceblue;">Email</label>
                 <div class="mx-auto mb-3">
                     <input type="email" formControlName="email" id='email' class="form-control" required>
                     <div *ngIf="signinForm.get('email').touched">
@@ -38,7 +38,7 @@
                         </mat-error>
                     </div>
                 </div>
-                <label for="password">Password</label>
+                <label for="password" style="color: aliceblue;">Password</label>
                 <div class="mx-auto mb-3">
                     <input type="password" size="2" class="form-control" formControlName="password" required>
                     <div *ngIf="signinForm.get('password').touched">
@@ -59,7 +59,7 @@
             <a href="">Forgot Password</a>
         </div>
         <div class="text-center mt-3">
-            <p>New to askreddit? <a routerLink='/sign-up'>Sign up</a></p>
+            <p style="color: aliceblue;">New to askreddit? <a routerLink='/sign-up'>Sign up</a></p>
         </div>
 
     </div>

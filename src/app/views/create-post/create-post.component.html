@@ -3,14 +3,14 @@
         <div class="text-center">
             <img src="assets/img/football-snoo-1567804843-0174207019155.png" width=60px alt="">
         </div>
-        <h3 class="my-3 text-center">New post</h3>
+        <h3 class="my-3 text-center" style="color: aliceblue;">New post</h3>
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
-                <label for="topic">Topic</label>
+                <label for="topic" style="color: aliceblue;">Topic</label>
                 <select class="form-control col-lg-4" (change)="changeTopic($event)" formControlName="topic">
                     <option *ngFor="let topic of topics" [ngValue]="topic">{{topic}}</option>
                 </select>
-                <label for="title">Title</label>
+                <label for="title" style="color: aliceblue;" class="mt-4">Title</label>
                 <div class="mx-auto mb-3">
                     <input type="title" formControlName="title" class="form-control" required>
                     <div *ngIf="newPostForm.get('title').touched">
@@ -19,7 +19,7 @@
                         </mat-error>
                     </div>
                 </div>
-                <label for="content">Content</label>
+                <label for="content" style="color: aliceblue;">Content</label>
                 <div class="mx-auto mb-3">
                     <textarea type="content" size="2" rows="5" class="form-control" formControlName="content"
                         required></textarea>
