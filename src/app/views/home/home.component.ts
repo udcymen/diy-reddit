@@ -35,14 +35,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription = this.auth.user$
       .pipe(
         map(user => this.user = user),
-        switchMap(user => {
+        switchMap(() => {
           return this.postService.getAllPost()
         })
       )
       .pipe(
         map((posts: Post[]) => {
           posts.forEach((post: Post) => {
-            if (post.votes) {
+            if (values(post.votes).length != 0) {
               post['voteCount'] = sum(values(post.votes));
               if (this.user) {
                 post['userVote'] = post.votes[this.user.uid]
